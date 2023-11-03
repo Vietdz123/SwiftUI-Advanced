@@ -13,6 +13,11 @@
 		0479553A2AF3932600CBC61D /* ButtonStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047955392AF3932600CBC61D /* ButtonStyleView.swift */; };
 		0479553C2AF398A600CBC61D /* CustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0479553B2AF398A600CBC61D /* CustomTransition.swift */; };
 		0479553E2AF3AF0A00CBC61D /* ViewBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0479553D2AF3AF0A00CBC61D /* ViewBuilderView.swift */; };
+		047F62EF2AF48CFF003CBB2D /* GeotryReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F62EE2AF48CFF003CBB2D /* GeotryReaderView.swift */; };
+		047F62F12AF49C89003CBB2D /* DefaultTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F62F02AF49C89003CBB2D /* DefaultTabBarView.swift */; };
+		047F62F42AF4A57C003CBB2D /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F62F32AF4A57C003CBB2D /* CustomTabView.swift */; };
+		047F62F62AF4AEC8003CBB2D /* PdfToWordTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F62F52AF4AEC8003CBB2D /* PdfToWordTabView.swift */; };
+		047F62F82AF4B1A0003CBB2D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F62F72AF4B19F003CBB2D /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +28,11 @@
 		047955392AF3932600CBC61D /* ButtonStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyleView.swift; sourceTree = "<group>"; };
 		0479553B2AF398A600CBC61D /* CustomTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransition.swift; sourceTree = "<group>"; };
 		0479553D2AF3AF0A00CBC61D /* ViewBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBuilderView.swift; sourceTree = "<group>"; };
+		047F62EE2AF48CFF003CBB2D /* GeotryReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeotryReaderView.swift; sourceTree = "<group>"; };
+		047F62F02AF49C89003CBB2D /* DefaultTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTabBarView.swift; sourceTree = "<group>"; };
+		047F62F32AF4A57C003CBB2D /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
+		047F62F52AF4AEC8003CBB2D /* PdfToWordTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfToWordTabView.swift; sourceTree = "<group>"; };
+		047F62F72AF4B19F003CBB2D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,10 +65,12 @@
 		0479552A2AF3909300CBC61D /* SwiftUI-Advanded */ = {
 			isa = PBXGroup;
 			children = (
+				047F62F22AF4A2D9003CBB2D /* CustomTabView */,
 				0479552B2AF3909300CBC61D /* SwiftUI_AdvandedApp.swift */,
 				047955392AF3932600CBC61D /* ButtonStyleView.swift */,
 				0479553B2AF398A600CBC61D /* CustomTransition.swift */,
 				0479553D2AF3AF0A00CBC61D /* ViewBuilderView.swift */,
+				047F62EE2AF48CFF003CBB2D /* GeotryReaderView.swift */,
 				0479552F2AF3909400CBC61D /* Assets.xcassets */,
 				047955312AF3909400CBC61D /* Preview Content */,
 			);
@@ -71,6 +83,17 @@
 				047955322AF3909400CBC61D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		047F62F22AF4A2D9003CBB2D /* CustomTabView */ = {
+			isa = PBXGroup;
+			children = (
+				047F62F02AF49C89003CBB2D /* DefaultTabBarView.swift */,
+				047F62F32AF4A57C003CBB2D /* CustomTabView.swift */,
+				047F62F52AF4AEC8003CBB2D /* PdfToWordTabView.swift */,
+				047F62F72AF4B19F003CBB2D /* Extensions.swift */,
+			);
+			path = CustomTabView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,10 +166,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				047F62EF2AF48CFF003CBB2D /* GeotryReaderView.swift in Sources */,
+				047F62F82AF4B1A0003CBB2D /* Extensions.swift in Sources */,
 				0479553A2AF3932600CBC61D /* ButtonStyleView.swift in Sources */,
 				0479553E2AF3AF0A00CBC61D /* ViewBuilderView.swift in Sources */,
+				047F62F12AF49C89003CBB2D /* DefaultTabBarView.swift in Sources */,
+				047F62F62AF4AEC8003CBB2D /* PdfToWordTabView.swift in Sources */,
 				0479553C2AF398A600CBC61D /* CustomTransition.swift in Sources */,
 				0479552C2AF3909300CBC61D /* SwiftUI_AdvandedApp.swift in Sources */,
+				047F62F42AF4A57C003CBB2D /* CustomTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

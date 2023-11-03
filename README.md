@@ -227,3 +227,112 @@ struct ViewBuilderView: View {
 }
 
 ```
+
+# IV. GeomereyReader
+
+Ta sử dụng `GeometryReader` cho phép ta phép lấy và sử dụng size của view cha cho view con của nó. Ta cần biết rằng `SwiftUI sử dụng 3 bước sau` khi làm việc với `GeometryReader`: `View cha` đề nghị size cho `view con`, `view con` sử dụng size đó để quyết định size cho chính bản thân, sau đó `View cha` sẽ sửu dụng điều đó để quyết định vị trí `View con` tương ứng. Nói đơn giản thì thằng `GeometryReader` sẽ cho phép ta đọc size mà được view cha đề nghị, sau đó ta sẽ sử dụng view đó để layout cho view con.
+
+- For example, we could use GeometryReader to make a text view have 90% of all available width regardless of its content:
+
+```swift
+struct GeotryReaderView: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            
+            
+            GeometryReader { geo in
+                
+                Text("Hello, World!")
+                    .frame(width: geo.size.width * 0.5)
+                    .background(.red)
+                    .onAppear {
+                        
+                        print("DEBUG: \(geo.size)")  //Print: DEBUG: (390.0, 658.9407809031392)
+                    }
+            }
+            .background(.green)
+            
+        }
+        .padding(.top, 1)
+        
+        Text("More Text")
+        Text("More Text")
+        Text("More Text")
+        Text("More Text")
+       
+    }
+}
+
+```
+
+Output:
+
+![](gif/geo_read.png)
+
+Ta có `geo` thuộc kiểu `GeometryProxy`, it contains the proposed size, any safe area insets that have been applied, plus a method for reading frame values that we’ll look at in a moment. `GeometryReader` có một tác dụng phụ thú vị có thể khiến ta khó chịu lúc đầu: Nhìn vào output, ta thấy thằng `GeometryReader` expanded space nhiều nhất nó có thể. Ta cũng thấy rằng in ra `DEBUG: (390.0, 658.9407809031392)`, đây chính là size thằng `GeometryReader` có thể cung cấp và cũng là size đề nghị cho thằng View con. Sau đây là ví dụ về việc `GeometryReader` đọc x, y:
+
+```swift
+struct OuterView: View {
+    var body: some View {
+        VStack {
+            Text("Top")
+            InnerView()
+                .background(.green)
+            Text("Bottom")
+        }
+    }
+}
+
+struct InnerView: View {
+    var body: some View {
+        HStack {
+            Text("Left")
+            GeometryReader { geo in
+                Text("Center")
+                    .background(.blue)
+                    .onTapGesture {
+                        print("Global center: \(geo.frame(in: .global).midX) x \(geo.frame(in: .global).midY)")
+                        print("Custom center: \(geo.frame(in: .named("Custom")).midX) x \(geo.frame(in: .named("Custom")).midY)")
+                        print("Local center: \(geo.frame(in: .local).midX) x \(geo.frame(in: .local).midY)")
+                    }
+            }
+            .background(.orange)
+            Text("Right")
+        }
+    }
+}
+
+struct ContentView: View {
+    var body: some View {
+        OuterView()
+            .background(.red)
+            .coordinateSpace(name: "Custom")
+    }
+}
+
+struct GeotryReaderView: View {
+    var body: some View {
+        OuterView()
+            .background(.red)
+            .coordinateSpace(name: "Custom")
+       
+    }
+}
+
+```
+
+
+Ouput:
+
+![](gif/geotry_xy.png)
+
+The output you get when that code runs depends on the device you’re using, but here’s what I got in iphone 12
+- Global center: 189.83 x 430.60
+- Custom center: 189.83 x 383.60    `Phần custom này thì vẫn chưa hiểu`
+- Local center: 152.17 x 350.96
+
+# V. Use PreferenceKey to extract values from child views in SwiftUI
+
+Tạm bỏ
+
+# VI. Create a custom tab bar in SwiftUI

@@ -12,7 +12,11 @@ struct SwiftUI_AdvandedApp: App {
     var body: some Scene {
         WindowGroup {
 //            ButtonStyleView()
-            CustomTransition()
+//            CustomTransition()
+//            GeotryReaderView()
+//            DefaultTabBarView()
+//            CustomTabView()
+            PdfToWordTabView()
         }
     }
 }
