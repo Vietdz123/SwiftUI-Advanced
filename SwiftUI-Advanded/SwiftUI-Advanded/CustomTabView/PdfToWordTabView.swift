@@ -131,7 +131,7 @@ struct TabPDFView: View {
         }
         .frame(maxWidth: .infinity)
         .frame(height: 56)
-        .overlay{
+        .overlay {
             
             Button(action: {
                 print("DEBUG: plussss")
@@ -147,7 +147,8 @@ struct TabPDFView: View {
                     }
                 
             })
-            .offset(y : -24)
+            .offset(y : -80)
+            
         }
         
     }

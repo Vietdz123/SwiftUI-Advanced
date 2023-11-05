@@ -38,8 +38,17 @@ struct ButtonStyleView: View {
                 .background(.blue)
                 .cornerRadius(20)
                 .padding()
-                
+            
         })
         .buttonStyle(ButtonStyleCustom(background: .red))
+        
     }
+    
 }
+                     
+                                       
+                                       
+                                       
+                                       
+                                       
+                                    

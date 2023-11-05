@@ -70,3 +70,8 @@ struct CustomTransition: View {
         }
     }
 }
+
+
+#Preview {
+    CustomTransition()
+}

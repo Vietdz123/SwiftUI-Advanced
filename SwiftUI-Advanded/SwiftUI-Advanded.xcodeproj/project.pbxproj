@@ -18,6 +18,9 @@
 		047F62F42AF4A57C003CBB2D /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F62F32AF4A57C003CBB2D /* CustomTabView.swift */; };
 		047F62F62AF4AEC8003CBB2D /* PdfToWordTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F62F52AF4AEC8003CBB2D /* PdfToWordTabView.swift */; };
 		047F62F82AF4B1A0003CBB2D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F62F72AF4B19F003CBB2D /* Extensions.swift */; };
+		D1AED56E2AF5EAFF000CB9F1 /* LayoutSystemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AED56D2AF5EAFF000CB9F1 /* LayoutSystemView.swift */; };
+		D1AED5702AF5FA3E000CB9F1 /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AED56F2AF5FA3E000CB9F1 /* TestingView.swift */; };
+		D1B0EB522AF74E4300B56CE8 /* Part2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B0EB512AF74E4300B56CE8 /* Part2View.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +36,9 @@
 		047F62F32AF4A57C003CBB2D /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		047F62F52AF4AEC8003CBB2D /* PdfToWordTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfToWordTabView.swift; sourceTree = "<group>"; };
 		047F62F72AF4B19F003CBB2D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D1AED56D2AF5EAFF000CB9F1 /* LayoutSystemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSystemView.swift; sourceTree = "<group>"; };
+		D1AED56F2AF5FA3E000CB9F1 /* TestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingView.swift; sourceTree = "<group>"; };
+		D1B0EB512AF74E4300B56CE8 /* Part2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Part2View.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +77,9 @@
 				0479553B2AF398A600CBC61D /* CustomTransition.swift */,
 				0479553D2AF3AF0A00CBC61D /* ViewBuilderView.swift */,
 				047F62EE2AF48CFF003CBB2D /* GeotryReaderView.swift */,
+				D1AED56D2AF5EAFF000CB9F1 /* LayoutSystemView.swift */,
+				D1AED56F2AF5FA3E000CB9F1 /* TestingView.swift */,
+				D1B0EB512AF74E4300B56CE8 /* Part2View.swift */,
 				0479552F2AF3909400CBC61D /* Assets.xcassets */,
 				047955312AF3909400CBC61D /* Preview Content */,
 			);
@@ -168,11 +177,14 @@
 			files = (
 				047F62EF2AF48CFF003CBB2D /* GeotryReaderView.swift in Sources */,
 				047F62F82AF4B1A0003CBB2D /* Extensions.swift in Sources */,
+				D1B0EB522AF74E4300B56CE8 /* Part2View.swift in Sources */,
 				0479553A2AF3932600CBC61D /* ButtonStyleView.swift in Sources */,
+				D1AED5702AF5FA3E000CB9F1 /* TestingView.swift in Sources */,
 				0479553E2AF3AF0A00CBC61D /* ViewBuilderView.swift in Sources */,
 				047F62F12AF49C89003CBB2D /* DefaultTabBarView.swift in Sources */,
 				047F62F62AF4AEC8003CBB2D /* PdfToWordTabView.swift in Sources */,
 				0479553C2AF398A600CBC61D /* CustomTransition.swift in Sources */,
+				D1AED56E2AF5EAFF000CB9F1 /* LayoutSystemView.swift in Sources */,
 				0479552C2AF3909300CBC61D /* SwiftUI_AdvandedApp.swift in Sources */,
 				047F62F42AF4A57C003CBB2D /* CustomTabView.swift in Sources */,
 			);

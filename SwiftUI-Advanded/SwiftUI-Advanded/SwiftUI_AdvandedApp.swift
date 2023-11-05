@@ -16,7 +16,8 @@ struct SwiftUI_AdvandedApp: App {
 //            GeotryReaderView()
 //            DefaultTabBarView()
 //            CustomTabView()
-            PdfToWordTabView()
+//            PdfToWordTabView()
+            TestingView()
         }
     }
 }
