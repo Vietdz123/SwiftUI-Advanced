@@ -349,9 +349,13 @@ struct HeightSyncedRow<Content: View>: View {
 }
 ```
 
+![](gif/output_part2.png)
+
+- `Giải thích:` Ở đây ta triển khải `HeightPreferenceKey` thuộc kiểu `PreferenceKey`, struct này có 2 nhiệm vụ, nhiệm vụ đầu là hứng giá trị mới, sau đó `update value` cũ theo `nextValue` truyền vào. Nhiệm vụ thứ 2 là mỗi khi `value` thay đổi nó sẽ vào hàm `onPreferenceChange` để thực hiện 1 action gì đó. Ta thấy rằng mỗi thằng `EventInfoBadge` đều triển khai `syncingHeightIfLarger`. `syncingHeightIfLarger` thằng này sẽ gán liên tục giá trị cho `HeightPreferenceKey`, mỗi khi gán giá trị mới thì `PreferenceKey` sẽ vào lại hàm `onPreferenceChange`, lúc đó nó sẽ compare giá trị cũ và giá trị mới và tìm được giá trị lớn nhất, sau đó update qua `binding` truyền vào. Và thế là ta tìm được max height background.
 
 
 # V. Reference
 1. [Understanding SwiftUI Layout Behaviors](https://defagos.github.io/understanding_swiftui_layout_behaviors/?fbclid=IwAR1X3vDcR4Qr3FCdNZXLIzc0_KJRyD-Di7LpVk8VP5S0p-At6iE-1I_yu-I)
 2. [A guide to the SwiftUI layout system](https://www.swiftbysundell.com/articles/swiftui-layout-system-guide-part-2/)
 3. [How an Hstack Lays out Its Children](https://www.objc.io/blog/2020/11/10/hstacks-child-ordering/)
+4. [A guide to the SwiftUI layout system - Part 3](https://www.swiftbysundell.com/articles/swiftui-layout-system-guide-part-3/)
