@@ -12,9 +12,21 @@ Hành vi thằng `children` tự chọn size của nó được gọi là `sizin
 Dưới đây là một số loại:
 - `Expanding`: Color, Divider, Image with resizable, TextEditor, TextFiled(Hor), `Full Shapes`, `frame with .infinity`, `GeometryReader`
 - `Hugging`: Image, Text, TextField(ver), `frame with finite value`, `fixedSize`
-- `Neutral`: Button, HStack, VStack, ZStack, `View/border(_:width:)`, `View/background(_:alignment:)`, `iew/overlay(_:alignment:)`, `View/offset(_:) and View/offset(x:y:)`, `Group`
+- `Neutral`: Button, HStack, VStack, ZStack, `View/border(_:width:)`, `View/background(_:alignment:)`, `view/overlay(_:alignment:)`, `View/offset(_:) and View/offset(x:y:)`, `Group`
 fixedSize
 ![](Images/behavior_size.png)
+
+Khi layout ta hay xét frame cho 1 view, ta có phân loại frame thành 2 loại:
+
+- `Simple Frame`:
+
+![](gif/simple_frame.png)
+
+Với trường hợp frame được chỉ định cụ thể thì chắc chắn nó là `hug`, còn trong trường hợp ko được chỉ(`omitted`), thì nó sẽ là `neu`, `frame` của nó sẽ phụ thuộc vào `size child` của nó.
+
+- `Advanced Frame`:
+
+Với trường hợp frame được chỉ định cụ thể thì chắc chắn nó là `hug`, còn trong trường hợp ko được chỉ(`omitted`), thì nó sẽ là `neu`, `frame` của nó sẽ phụ thuộc vào `size child` của nó, còn trường hợp `.infinity` thì sẽ lấy tất cả.
 
 ## 1.1 Deep Understand
 
@@ -245,8 +257,101 @@ Output:
 ![](Images/problem2.png)
 
 
-Nhìn nó cũng tạm ổn, nhưng ta mong muốn phần `height` sẽ cao bằng nhau ở background. Để làm được điều đó, ta phải thông báo tới `EventInfoList` rằng `maximumHeight` của 
+Nhìn nó cũng tạm ổn, nhưng ta mong muốn phần `height` sẽ cao bằng nhau ở background. Để làm được điều đó, ta phải thông báo tới `EventInfoList` rằng `maximumHeight` có thể có là bao nhiêu. 
+
+```swift
+struct HeightSyncedRow<Content: View>: View {
+    private let content: Content
+    @State private var childHeight: CGFloat?
+
+    init(@ViewBuilder content: () -> Content) {
+        self.content = content()
+    }
+
+    var body: some View {
+        HStack {
+            content.frame(height: childHeight)
+        }
+    }
+}
+
+struct EventInfoList: View {
+    var body: some View {
+        HeightSyncedRow {
+            EventInfoBadge(
+                iconName: "video.circle.fill",
+                text: "Video call available"
+            )
+            EventInfoBadge(
+                iconName: "doc.text.fill",
+                text: "Files are attached"
+            )
+            EventInfoBadge(
+                iconName: "person.crop.circle.badge.plus",
+                text: "Invites enabled, 5 people maximum"
+            )
+        }
+    }
+}
+```
+
+Bây giờ nhiệm vụ của ta là tính giá trị `childHeight` của `HeightSyncedRow`. Để làm được điều đó đó, ta phải làm mỗi `child views` thông báo height của nó thông qua `view hierachy` để làm được `height` cao nhất, vì vậy ta sẽ sử `SwiftUI’s Preferences system`. `SwiftUI’s Preferences system ` cho phép chúng ta đính kèm `1 value` với `1 preference key` với 1 `child view`, `value` đó sau đó có thể được đọc bởi `parents của chúng nó`.
+
+- Đầu tiên ta cần implement 1 struct comform với `PreferenceKey`, sau đó ta cần triển khai `defaultValue` và một method cho việc `eeducing two values (the previous and next) into one — like this`.
+
+```swift
+private struct HeightPreferenceKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat,
+                       nextValue: () -> CGFloat) {
+        value = nextValue()
+    }
+}
+```
+
+Sau đó ta cần sử dụng `GeometryReader` cho phép chúng ta đọc size của `current view's container`. Bằng cách embedding 1 `GeometryReader` vào `background`, ta có thể thực hiện các hành động đọc mà ko ânhr hưởng tới `layout của view`. Bởi vì `background view` luôn luôn chiếm toàn bộ avalable space của 1 frame nên thằng `GeometryReader` sẽ ko thể lấy được gì cả.
+
+```swift
+extension View {
+    func syncingHeightIfLarger(than height: Binding<CGFloat?>) -> some View {
+        background(GeometryReader { proxy in
+            Color.clear.preference(
+                key: HeightPreferenceKey.self,
+                value: proxy.size.height
+            )
+        })
+        .onPreferenceChange(HeightPreferenceKey.self) {
+            height.wrappedValue = max(height.wrappedValue ?? 0, $0)
+        }
+    }
+}
+```
+
+With the above in place, we can now go back to our HeightSyncedRow and simply make it apply our new syncingHeightIfLarger modifier to its content view — which in turn will make each of its children adopt the exact same height:
+
+```swift
+struct HeightSyncedRow<Content: View>: View {
+    private let content: Content
+    @State private var childHeight: CGFloat?
+
+    init(@ViewBuilder content: () -> Content) {
+        self.content = content()
+    }
+
+    var body: some View {
+        HStack {
+            content.syncingHeightIfLarger(than: $childHeight)
+                   .frame(height: childHeight)
+                   .background(Color.red)
+        }
+    }
+}
+```
+
+
 
 # V. Reference
 1. [Understanding SwiftUI Layout Behaviors](https://defagos.github.io/understanding_swiftui_layout_behaviors/?fbclid=IwAR1X3vDcR4Qr3FCdNZXLIzc0_KJRyD-Di7LpVk8VP5S0p-At6iE-1I_yu-I)
 2. [A guide to the SwiftUI layout system](https://www.swiftbysundell.com/articles/swiftui-layout-system-guide-part-2/)
+3. [How an Hstack Lays out Its Children](https://www.objc.io/blog/2020/11/10/hstacks-child-ordering/)

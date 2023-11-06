@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0459C3742AF8818A0008A649 /* GuildLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459C3732AF8818A0008A649 /* GuildLayoutView.swift */; };
 		0479552C2AF3909300CBC61D /* SwiftUI_AdvandedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0479552B2AF3909300CBC61D /* SwiftUI_AdvandedApp.swift */; };
 		047955302AF3909400CBC61D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0479552F2AF3909400CBC61D /* Assets.xcassets */; };
 		047955332AF3909400CBC61D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 047955322AF3909400CBC61D /* Preview Assets.xcassets */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0459C3732AF8818A0008A649 /* GuildLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuildLayoutView.swift; sourceTree = "<group>"; };
 		047955282AF3909300CBC61D /* SwiftUI-Advanded.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftUI-Advanded.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0479552B2AF3909300CBC61D /* SwiftUI_AdvandedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_AdvandedApp.swift; sourceTree = "<group>"; };
 		0479552F2AF3909400CBC61D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				0479553B2AF398A600CBC61D /* CustomTransition.swift */,
 				0479553D2AF3AF0A00CBC61D /* ViewBuilderView.swift */,
 				047F62EE2AF48CFF003CBB2D /* GeotryReaderView.swift */,
+				0459C3732AF8818A0008A649 /* GuildLayoutView.swift */,
 				D1AED56D2AF5EAFF000CB9F1 /* LayoutSystemView.swift */,
 				D1AED56F2AF5FA3E000CB9F1 /* TestingView.swift */,
 				D1B0EB512AF74E4300B56CE8 /* Part2View.swift */,
@@ -176,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				047F62EF2AF48CFF003CBB2D /* GeotryReaderView.swift in Sources */,
+				0459C3742AF8818A0008A649 /* GuildLayoutView.swift in Sources */,
 				047F62F82AF4B1A0003CBB2D /* Extensions.swift in Sources */,
 				D1B0EB522AF74E4300B56CE8 /* Part2View.swift in Sources */,
 				0479553A2AF3932600CBC61D /* ButtonStyleView.swift in Sources */,

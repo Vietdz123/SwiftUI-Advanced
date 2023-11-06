@@ -21,18 +21,42 @@ struct EventInfoBadge: View {
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.center)
         }
-        .background(.secondary)
         .cornerRadius(8)
         .padding()
     }
 }
+
+struct HeightRowSync<Background: View, ContentView: View>: View {
+    
+    let contentView: ContentView
+    let background: Background
+    @State private var childHeight: CGFloat?
+    
+    init(background: Background,
+         @ViewBuilder contentView: () -> ContentView) {
+        self.contentView = contentView()
+        self.background = background
+    }
+    
+    var body: some View {
+        HStack(alignment: .center, spacing: 8) {
+            contentView
+                .syncHeightLarger(than: $childHeight)
+                .frame(height: childHeight)
+                .background(background)
+        }
+        
+
+    }
+}
+
 
 struct Part2View: View {
     var body: some View {
         VStack {
             
             Spacer()
-            HStack {
+            HeightRowSync(background: Color.secondary.opacity(0.3)) {
                 EventInfoBadge(
                     iconName: "video.circle.fill",
                     text: "Video call available"
@@ -51,6 +75,34 @@ struct Part2View: View {
         .padding()
         
     }
+}
+
+struct HeightSyncRowPreference: PreferenceKey {
+
+    static var defaultValue: CGFloat = 0
+    
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
+    }
+    
+}
+
+extension View {
+    
+    func syncHeightLarger(than height: Binding<CGFloat?>) -> some View {
+        
+        background {
+            GeometryReader { geo in
+                Color.clear.preference(key: HeightSyncRowPreference.self,
+                                       value: geo.size.height)
+                
+            }
+            .onPreferenceChange(HeightSyncRowPreference.self, perform: { value in
+                height.wrappedValue = max(height.wrappedValue ?? 0, value)
+            })
+        }
+    }
+    
 }
 
 #Preview {
