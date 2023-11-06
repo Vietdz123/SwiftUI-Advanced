@@ -18,7 +18,9 @@ struct SwiftUI_AdvandedApp: App {
 //            CustomTabView()
 //            PdfToWordTabView()
 //            TestingView()
-            LearnAnimationStack()
+//            LearnAnimationStack()
+//            OffsetView()
+            BottomSheetView()
         }
     }
 }
