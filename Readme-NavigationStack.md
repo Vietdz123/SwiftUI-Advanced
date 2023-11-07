@@ -31,6 +31,76 @@ NavigationStack {
 }
 ```
 
+Ở đây ta có 2 kiểu sử dụng đó là `NavigationLink(value: ,label: ) + navigationDestination` và `NavigationLink(destination: , label: )`. Vậy điểm khác biệt là gì ? Điểm khác biệt là `navigationDestination` là `lazy loading`:
+
+```swift
+struct DiffView: View {
+    var body: some View {
+        NavigationStack {
+            ForEach(0 ..< 20, id: \.self) { value in
+                NavigationLink {
+                    NavInitView(value: value)
+                } label: {
+                    Text("Click to \(value)")
+                }
+
+            }
+        }
+
+    }
+}
+
+struct NavInitView: View {
+    
+    let value: Int
+    
+    init(value: Int) {
+        print("DEBUG: Init \(value)")
+        self.value = value
+    }
+    
+    var body: some View {
+        Text("View \(value)")
+    }
+}
+```
+
+Dù ta chưa `click` vào `view nào nma tất cả các View trong NavigationLink đều đã được init` và ở dưới console in:
+
+```
+DEBUG: Init 0
+DEBUG: Init 0
+DEBUG: Init 1
+DEBUG: Init 1
+DEBUG: Init 2
+DEBUG: Init 2
+DEBUG: Init 3
+```
+
+Tuy nhiên khi thay thế nó bằng `navigationDestination` thì sẽ như sau:
+
+```swift
+struct DiffView: View {
+    var body: some View {
+        NavigationStack {
+            ForEach(0 ..< 20, id: \.self) { value in
+                NavigationLink(value: value) {
+                    Text("Click to \(value)")
+                }
+                .navigationDestination(for: Int.self) { value in
+                    NavInitView(value: value)
+                }
+
+            }
+        }
+
+
+    }
+}
+```
+
+Khi `Click` vào `View` nào thì `View` đó mới được init. Best loadding
+
 # II. Pop To Root
 
 `NavigationStack` có 1 phương thức init chấp nhận tham số là một `array of navigation paths`. Ta có thể coi `Paths` như là một `data source representing all views in a navigation stack.`:
@@ -89,6 +159,11 @@ struct DetailView: View {
 Output:
 
 ![](gif/popToRoot.gif)
+
+
+
+
+
 
 
 # III. Reference

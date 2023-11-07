@@ -53,6 +53,41 @@ struct DetailView: View {
     }
 }
 
+struct DiffView: View {
+    var body: some View {
+        NavigationStack {
+            ForEach(0 ..< 20, id: \.self) { value in
+                NavigationLink(value: value) {
+                    Text("Click to \(value)")
+                }
+                .navigationDestination(for: Int.self) { value in
+                    NavInitView(value: value)
+                }
+
+            }
+        }
+
+
+    }
+}
+
+
+
+struct NavInitView: View {
+    
+    let value: Int
+    
+    init(value: Int) {
+        print("DEBUG: Init \(value)")
+        self.value = value
+    }
+    
+    var body: some View {
+        Text("View \(value)")
+    }
+}
+
+
 #Preview {
-    LearnAnimationStack()
+    DiffView()
 }
