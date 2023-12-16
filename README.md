@@ -1,338 +1,57 @@
-# SwiftUI-Advanced
-
-# I. Custom Button Style
-
-Được sử dụng để custom action khi press Button và sth :))
-
-```swift
-struct ButtonStyleCustom: ButtonStyle {
-    
-    let background: Color
-    
-    init(background: Color = .red) {
-        self.background = background
-    }
-    
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .background(configuration.isPressed ? background : .yellow)
-            .scaleEffect(configuration.isPressed ? 0.5 : 1.0)
-            
-    }
-    
-}
+# Các vấn đề giải quyết trong Repo này
 
 
-struct ButtonStyleView: View {
-    var body: some View {
-        Button(action: {
-            
-        }, label: {
-            Text("Click Me")
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .frame(height: 50)
-                .cornerRadius(20)
-                .background(.blue)
-                .cornerRadius(20)
-                .padding()
-                
-        })
-        .buttonStyle(ButtonStyleCustom(background: .red))
-    }
-}
-```
+# Starting:
 
-![](gif/styleButton.gif)
+- Understand `viewModifier` của `View`, của `Font`.... : func, static func return some view,...
 
-# II. Custom AnyTransition
+# I. Navigation Stack
 
-Được sử dụng để custom 1 View biến mất hay xuất hiện, dưới đây là ta sử dụng `transition(.move)` của hệ thống:
+Tìm hiểu mối liên hệ giữa `NavigationStack` với `NavigationLink` và `NavigationPath`
+- Khi ta sử dụng `.navigationDestination` để push qua màn mới sẽ làm tăng `NavigationPath`, vậy sử dụng `NavigationLink(isPresented:)` thì có thế hay không ? (Câu hỏi này sẽ liên kết với `#2` bên dưới).
+- Ta biết rằng khi sử dụng `Router` để chuyển màn thì khá dễ dàng, vậy khi ta muốn sử dụng 1 cách mới đó là sử dụng 2 kiểu dữ liệu khác nhau như `Int và String` để push qua 2 màn controller khác nhau thì sẽ thế nào ? Nâng cao hơn đó là sử dụng 2 kiểu dữ liệu này ở 2 bên TapBar thì có chạy không, bởi vì trước đây tôi làm thì nó ko chạy và ko hiểu tạo sao.
 
-```swift
-struct CustomTransition: View {
-    
-    @State private var showRec = false
-    
-    var body: some View {
-        VStack(alignment: .center, spacing: 8) {
-            
-            if showRec {
-                Rectangle()
-                    .fill(.red)
-                    .frame(width: 300, height: 200)
-                    .transition(.move(edge: .leading))
-                    .padding(.top, 200)
-            }
-
-                
-            Spacer()
-            
-            Button(action: {
-                withAnimation(.easeOut) {
-                    showRec.toggle()
-                }
-            }, label: {
-                Text("Click Me")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
-                    .cornerRadius(20)
-                    .background(.blue)
-                    .cornerRadius(20)
-                    .padding()
-                    
-            })
-            .buttonStyle(ButtonStyleCustom(background: .red))
-            .padding()
-        }
-    }
-}
-
-```
-
-Output:
-
-![](gif/transition_default.gif)
-
-Bây giờ ta sẽ tự triển khai `custom transition`:
+- Điều gì xảy ra khi ta lông 2 `NavigationStack` cho nhau.
 
 
-```swift
-struct RotateViewModifier: ViewModifier {
-    
-    let rotation: Double
-    
-    func body(content: Content) -> some View {
-        content
-            .rotationEffect(Angle(degrees: rotation))
-            .scaleEffect(rotation != 0 ? 2 : 1)
-    }
-    
-}
+# II. Đẩy thông tin từ UIKit ra SwiftUI
+
+Giờ ta có bên ngoài là 1 `SwfitUI View`, chứa bên trong là 1 component là `UIKit`(sử dụng `UIRespenableController` để làm), vậy có cách nào khi nhấn 1 `UIButton` hay thực hiện 1 action thì ta sẽ bắn action đó ra cho View SwiftUI thực hiện:
+- Ví dụ khi ta nhấn `UIButton`, thì ta sẽ pass 1 image ra cho `Swiftui View`, thì ta có thể sử dụng `binding`, cái này basic vl. 
+- Vấn đề lớn hơn, là trong `UIKit` có 1 nút `Button Done`, khi nhấn `Button` đó thì`SwiftUI View` sẽ push qua màn mới, vậy thì có cách nào để làm việc này. Nếu ta sử `NavigationLink(isPresented:)`  thì `binding` qua 1 biến `@State var presented` thì khá đơn giản. Nhưng ở đây là ta ko muốn sử dụng `NavigationLink(isPresented)`, cái ta muốn sử dụng là `navigationDestination()`.
+
+# III. How to know order of modifier
+
+- Hiểu rõ order of modifier
+- Xét `frame(maxwidth, maxheight)` sau đó xét `padding` khác thế nào giữa xét `padding` xong xét `frame(maxwidth, maxheight)`. Tương tự với xét `frame(width, height)` sau đó xét `padding`.
+
+# IV. Tap Are Gesture
+
+- Hiểu về vùng nhấn của `Button` và của 1 View và `TapGesture`. `Offset` sẽ ảnh hưởng thế nào lên `Tap Are Gesture` đó.
 
 
-extension AnyTransition {
-    
-    static var rotatingCustom: AnyTransition {
-        return AnyTransition.modifier(active: RotateViewModifier(rotation: 100),
-                                      identity: RotateViewModifier(rotation: 0))
-    }
-    
-}
+# V. Understand PreferenKey and when to use it
 
 
-struct CustomTransition: View {
-    
-    @State private var showRec = false
-    
-    var body: some View {
-        VStack(alignment: .center, spacing: 8) {
-            
-            if showRec {
-                Rectangle()
-                    .fill(.red)
-                    .frame(width: 300, height: 200)
-                    .transition(AnyTransition.rotatingCustom)
-                    .padding(.top, 200)
-            }
-
-                
-            Spacer()
-            
-            Button(action: {
-                withAnimation(.easeOut) {
-                    showRec.toggle()
-                }
-            }, label: {
-                Text("Click Me")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
-                    .cornerRadius(20)
-                    .background(.blue)
-                    .cornerRadius(20)
-                    .padding()
-                    
-            })
-            .buttonStyle(ButtonStyleCustom(background: .red))
-            .padding()
-        }
-    }
-}
-
-```
-
-Output:
-
-![](gif/transition_custom.gif)
-
-Về cơ bản ta hiểu là mỗi khi view được xuất hiện hoặc biến mất, thì nó sẽ gọi vào `modifier .transition`, ở đây ta triển khai `rotatingCustom` có `identity` và `active`. `identity` là modifier sau khi đã thực hiện xong quá trình `transition` còn `active` là modifier trong quá trình transition. 
-
-# III. How to use @ViewBuilder in SwiftUI 
-
-Để hiểu về `@ViewBuilder`, ta cần hiểu về `generic`. Giờ ta muốn struct comform `View`, trong đó có 1 parameter `content`, `content` là kiểu generic mà có thể pass bất kì `View` nào vào trong, ta làm như sau:
-
-```swift
-struct GenericstructView<CustomType: View>: View {
-    
-    var content: CustomType
-    
-    var body: some View {
-        content
-    }
-    
-}
-```
-
-Lúc này khi sử dụng View đó sẽ như thế này 
-
-```swift
-struct ViewBuilderView: View {
-    var body: some View {
-        GenericstructView(content: HStack(content: {
-            Text("Placeholder")
-        }))
-    }
-}
-```
-
-Bạn thấy không, nó nhấn rất là rồi mắt, giờ ta mong muốn đoạn `content` đó sẽ được pass như các view khác như `HStack { Text("Placeholder") }`. Để làm được điều này, ta sẽ sử dụng `@ViewBuilder`:
+# VI. GeometryReader - Global, local, custom
 
 
-```swift
-struct GenericstructView<CustomType: View>: View {
-    
-    var content: CustomType
-    
-    init( @ViewBuilder content: () -> CustomType) {
-        self.content = content()
-    }
-    
-    var body: some View {
-        content
-    }
-    
-}
+# VII. Understand AlignmentGuild Layout
 
 
-struct ViewBuilderView: View {
-    var body: some View {
-        GenericstructView {
-            HStack(content: {
-                Text("Placeholder")
-            })
-        }
-    }
-}
+# IX. Data Flow 
 
-```
+- `OnChange()`
 
-# IV. GeomereyReader
-
-Ta sử dụng `GeometryReader` cho phép ta phép lấy và sử dụng size của view cha cho view con của nó. Ta cần biết rằng `SwiftUI sử dụng 3 bước sau` khi làm việc với `GeometryReader`: `View cha` đề nghị size cho `view con`, `view con` sử dụng size đó để quyết định size cho chính bản thân, sau đó `View cha` sẽ sửu dụng điều đó để quyết định vị trí `View con` tương ứng. Nói đơn giản thì thằng `GeometryReader` sẽ cho phép ta đọc size mà được view cha đề nghị, sau đó ta sẽ sử dụng view đó để layout cho view con.
-
-- For example, we could use GeometryReader to make a text view have 90% of all available width regardless of its content:
-
-```swift
-struct GeotryReaderView: View {
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            
-            
-            GeometryReader { geo in
-                
-                Text("Hello, World!")
-                    .frame(width: geo.size.width * 0.5)
-                    .background(.red)
-                    .onAppear {
-                        
-                        print("DEBUG: \(geo.size)")  //Print: DEBUG: (390.0, 658.9407809031392)
-                    }
-            }
-            .background(.green)
-            
-        }
-        .padding(.top, 1)
-        
-        Text("More Text")
-        Text("More Text")
-        Text("More Text")
-        Text("More Text")
-       
-    }
-}
-
-```
-
-Output:
-
-![](gif/geo_read.png)
-
-Ta có `geo` thuộc kiểu `GeometryProxy`, it contains the proposed size, any safe area insets that have been applied, plus a method for reading frame values that we’ll look at in a moment. `GeometryReader` có một tác dụng phụ thú vị có thể khiến ta khó chịu lúc đầu: Nhìn vào output, ta thấy thằng `GeometryReader` expanded space nhiều nhất nó có thể. Ta cũng thấy rằng in ra `DEBUG: (390.0, 658.9407809031392)`, đây chính là size thằng `GeometryReader` có thể cung cấp và cũng là size đề nghị cho thằng View con. Sau đây là ví dụ về việc `GeometryReader` đọc x, y:
-
-```swift
-struct OuterView: View {
-    var body: some View {
-        VStack {
-            Text("Top")
-            InnerView()
-                .background(.green)
-            Text("Bottom")
-        }
-    }
-}
-
-struct InnerView: View {
-    var body: some View {
-        HStack {
-            Text("Left")
-            GeometryReader { geo in
-                Text("Center")
-                    .background(.blue)
-                    .onTapGesture {
-                        print("Global center: \(geo.frame(in: .global).midX) x \(geo.frame(in: .global).midY)")
-                        print("Custom center: \(geo.frame(in: .named("Custom")).midX) x \(geo.frame(in: .named("Custom")).midY)")
-                        print("Local center: \(geo.frame(in: .local).midX) x \(geo.frame(in: .local).midY)")
-                    }
-            }
-            .background(.orange)
-            Text("Right")
-        }
-    }
-}
-
-struct ContentView: View {
-    var body: some View {
-        OuterView()
-            .background(.red)
-            .coordinateSpace(name: "Custom")
-    }
-}
-
-struct GeotryReaderView: View {
-    var body: some View {
-        OuterView()
-            .background(.red)
-            .coordinateSpace(name: "Custom")
-       
-    }
-}
-
-```
+- `OnReceive()`
 
 
-Ouput:
+# XI. Async Await and TaskGroup
 
-![](gif/geotry_xy.png)
 
-The output you get when that code runs depends on the device you’re using, but here’s what I got in iphone 12
-- Global center: 189.83 x 430.60
-- Custom center: 189.83 x 383.60    `Phần custom này thì vẫn chưa hiểu`
-- Local center: 152.17 x 350.96
-
-# V. Use PreferenceKey to extract values from child views in SwiftUI
-
-Tạm bỏ
-
-# VI. Create a custom tab bar in SwiftUI
+## 1.1 Concurrency
+1. [Getting Started with async/await in SwiftUI](https://peterfriese.dev/posts/swiftui-concurrency-essentials-part1/)
+2. [How to run tasks using SwiftUI’s task() modifier](https://www.hackingwithswift.com/quick-start/concurrency/how-to-run-tasks-using-swiftuis-task-modifier)
+3. [Task Groups in Swift explained with code examples](https://www.avanderlee.com/concurrency/task-groups-in-swift/)
+4. [Tasks in Swift explained with code examples](https://www.avanderlee.com/concurrency/tasks/)
+5. [Async await in Swift explained with code examples](https://www.avanderlee.com/swift/async-await/)
