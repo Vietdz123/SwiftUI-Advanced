@@ -41,15 +41,117 @@ Giờ ta có bên ngoài là 1 `SwfitUI View`, chứa bên trong là 1 component
 
 # IX. Data Flow 
 
-- `OnChange()`
-
+- `OnChange():`
 - `OnReceive()`
 
+## 9.1 OnChange()
 
-# XI. Async Await and TaskGroup
+Trong SwiftUI, ta gần như không thể sử dụng `property observer` như `didSet` với các biến như `@State`. Vì vậy thằng `SwiftUI` cung cấp cho ta 1 modifier khác để track sự thay đổi này, đó là `onChange()`.
+
+**Important**: This behavior is changing in iOS 17 and later, with the older behavior being deprecated.
+
+- If you need to target iOS 16 and earlier, `onChange()` chấp nhận 1 parameter và gửi new value vào parameter của closure đó. ` For example, this will print name changes as they are typed:`
+
+```swift
+struct ContentView: View {
+    @State private var name = ""
+
+    var body: some View {
+        TextField("Enter your name:", text: $name)
+            .textFieldStyle(.roundedBorder)
+            .onChange(of: name) { newValue in
+                print("Name changed to \(name)!")
+            }
+    }
+}
+```
+
+Mỗi khi gõ text mới cho textField, thì nó sẽ vào `onChange()`
+
+- If you’re targeting iOS 17 or later, nó sẽ nhận 2 parameter mới cho newValue và oldValue:
+
+```swift
+struct ContentView: View {
+    @State private var name = ""
+
+    var body: some View {
+        TextField("Enter your name", text: $name)
+            .onChange(of: name) { oldValue, newValue in
+                print("Changing from \(oldValue) to \(newValue)")
+            }
+    }
+}
+```
+
+Tuy nhiên với trong trường hợp này `onChaneg(of: )` chỉ trigger action khi `name` thay đổi, đôi khi ta muốn nó trigger value luôn ngay khi khởi tạo thì ta sẽ sử dụng `initial: true` như sau:
+
+```swift
+struct ContentView: View {
+    @State private var name = ""
+
+    var body: some View {
+        TextField("Enter your name", text: $name)
+            .onChange(of: name, initial: true) {
+                print("Name is now \(name)")
+            }
+    }
+}
+```
+
+Đôi khi, ta muốn thêm 1 custom extension vào `Binding` để phát hiện sự thay đổi của chính biến `Binding` dó, thay vì phải đính nó vào `View`.
+
+```swift
+extension Binding {
+    func onChange(_ handler: @escaping (Value) -> Void) -> Binding<Value> {
+        Binding(
+            get: { self.wrappedValue },
+            set: { newValue in
+                self.wrappedValue = newValue
+                handler(newValue)
+            }
+        )
+    }
+}
+
+struct ContentView: View {
+    @State private var name = ""
+
+    var body: some View {
+        TextField("Enter your name:", text: $name.onChange(nameChanged))
+            .textFieldStyle(.roundedBorder)
+    }
+
+    func nameChanged(to value: String) {
+        print("Name changed to \(name)!")
+    }
+}
+```
 
 
-## 1.1 Concurrency
+
+
+# X. Async Await and TaskGroup
+
+OK Done
+
+#  XI. Property Wrapper
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# X. Reference
 1. [Getting Started with async/await in SwiftUI](https://peterfriese.dev/posts/swiftui-concurrency-essentials-part1/)
 2. [How to run tasks using SwiftUI’s task() modifier](https://www.hackingwithswift.com/quick-start/concurrency/how-to-run-tasks-using-swiftuis-task-modifier)
 3. [Task Groups in Swift explained with code examples](https://www.avanderlee.com/concurrency/task-groups-in-swift/)
