@@ -128,21 +128,25 @@ struct ContentView: View {
 ```
 
 
-
-
 # X. Async Await and TaskGroup
 
 OK Done
 
 #  XI. Property Wrapper
 
+OK Done
 
+# XII. EquatableView
 
+SwiftUI provides us a very fast and easy to use `diffing algorithm`, but as you might know, `diffing is a linear operation.` Vì vậy thuật toán diffing sẽ rất nhanh trong các trường hợp layout đơn giản và sẽ khá châmh với các trường hợp layout phức tạp. Tuy nhiên, SwiftUI cho phép ta thay thế diffing alogorithm với custom logic của ta. ` This week we will talk about optimizing our SwiftUI layouts using the equatable modifier.`
 
+## 12.1 Diffing in SwiftUI
 
+As you remember, we already talked about `diffing in SwiftUI`, but let me remind how it works. Bất cứ khi nào ta thay đổi `source of truth` cho views của mình như `@State or @ObservableObject`,.. SwiftUI sẽ `run body property of your view to generate a new one`. As the last step, SwiftUI renders a new view if something changed. The process of calculating a new body depends on how deep is your view hierarchy. Happily, we can replace SwiftUI diffing with our simplified version whenever we know the better way to determine changes.
 
+## 12.2 EquatableView
 
-
+Đôi khi chúng ta ko muốn sử dụng thuật toán diffing của SwiftUI, hoặc đôi khi ta muốn ignore some changes in data, and this is the exact place where we can use the `EquatableView` struct.
 
 
 
@@ -152,8 +156,14 @@ OK Done
 
 
 # X. Reference
+
+## 10.1 Async Await
 1. [Getting Started with async/await in SwiftUI](https://peterfriese.dev/posts/swiftui-concurrency-essentials-part1/)
 2. [How to run tasks using SwiftUI’s task() modifier](https://www.hackingwithswift.com/quick-start/concurrency/how-to-run-tasks-using-swiftuis-task-modifier)
 3. [Task Groups in Swift explained with code examples](https://www.avanderlee.com/concurrency/task-groups-in-swift/)
 4. [Tasks in Swift explained with code examples](https://www.avanderlee.com/concurrency/tasks/)
 5. [Async await in Swift explained with code examples](https://www.avanderlee.com/swift/async-await/)
+
+## 10.2 EquatableView
+1. [Optimizing views in SwiftUI using EquatableView](https://swiftwithmajid.com/2020/01/22/optimizing-views-in-swiftui-using-equatableview/)
+

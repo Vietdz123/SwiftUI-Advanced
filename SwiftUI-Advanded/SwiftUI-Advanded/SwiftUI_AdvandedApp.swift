@@ -20,7 +20,8 @@ struct SwiftUI_AdvandedApp: App {
 //            TestingView()
 //            LearnAnimationStack()
 //            OffsetView()
-            BottomSheetView()
+//            BottomSheetView()
+            NavgationPathView()
         }
     }
 }
