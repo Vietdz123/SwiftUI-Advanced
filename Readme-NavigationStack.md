@@ -162,10 +162,11 @@ Output:
 
 
 
-
+# II. Mastering NavigationStack
 
 
 
 # III. Reference
 
 1. [How to Pop to the Root view in SwiftUI](https://sarunw.com/posts/how-to-pop-to-root-view-in-swiftui/?fbclid=IwAR0kJf86XoYteFXX-P8VOU0K81FGvfx8Bai39nNeKRHzFY2CFHkmVevlK3o)
+2. [Mastering NavigationStack in SwiftUI. Navigator Pattern.](https://swiftwithmajid.com/2022/06/15/mastering-navigationstack-in-swiftui-navigator-pattern/)
