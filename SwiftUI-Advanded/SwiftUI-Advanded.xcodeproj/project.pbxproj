@@ -22,6 +22,11 @@
 		047F62F62AF4AEC8003CBB2D /* PdfToWordTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F62F52AF4AEC8003CBB2D /* PdfToWordTabView.swift */; };
 		047F62F82AF4B1A0003CBB2D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F62F72AF4B19F003CBB2D /* Extensions.swift */; };
 		04809F032B2FE0A000FCE145 /* NavgationPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04809F022B2FE0A000FCE145 /* NavgationPathView.swift */; };
+		D193BE6B2B485D6000ABEA2E /* TestingGeometryReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D193BE6A2B485D6000ABEA2E /* TestingGeometryReaderView.swift */; };
+		D193BE6D2B48ED3200ABEA2E /* ParallasxScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D193BE6C2B48ED3200ABEA2E /* ParallasxScrollView.swift */; };
+		D193BE6F2B48F75200ABEA2E /* LayoutReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D193BE6E2B48F75200ABEA2E /* LayoutReaderView.swift */; };
+		D193BE712B48FFC200ABEA2E /* StickeyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D193BE702B48FFC200ABEA2E /* StickeyHeaderView.swift */; };
+		D193BE742B490D5A00ABEA2E /* LazyVgridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D193BE732B490D5A00ABEA2E /* LazyVgridView.swift */; };
 		D1AED56E2AF5EAFF000CB9F1 /* LayoutSystemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AED56D2AF5EAFF000CB9F1 /* LayoutSystemView.swift */; };
 		D1AED5702AF5FA3E000CB9F1 /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AED56F2AF5FA3E000CB9F1 /* TestingView.swift */; };
 		D1B0EB522AF74E4300B56CE8 /* Part2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B0EB512AF74E4300B56CE8 /* Part2View.swift */; };
@@ -44,6 +49,11 @@
 		047F62F52AF4AEC8003CBB2D /* PdfToWordTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfToWordTabView.swift; sourceTree = "<group>"; };
 		047F62F72AF4B19F003CBB2D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		04809F022B2FE0A000FCE145 /* NavgationPathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavgationPathView.swift; sourceTree = "<group>"; };
+		D193BE6A2B485D6000ABEA2E /* TestingGeometryReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingGeometryReaderView.swift; sourceTree = "<group>"; };
+		D193BE6C2B48ED3200ABEA2E /* ParallasxScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallasxScrollView.swift; sourceTree = "<group>"; };
+		D193BE6E2B48F75200ABEA2E /* LayoutReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutReaderView.swift; sourceTree = "<group>"; };
+		D193BE702B48FFC200ABEA2E /* StickeyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickeyHeaderView.swift; sourceTree = "<group>"; };
+		D193BE732B490D5A00ABEA2E /* LazyVgridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyVgridView.swift; sourceTree = "<group>"; };
 		D1AED56D2AF5EAFF000CB9F1 /* LayoutSystemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSystemView.swift; sourceTree = "<group>"; };
 		D1AED56F2AF5FA3E000CB9F1 /* TestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingView.swift; sourceTree = "<group>"; };
 		D1B0EB512AF74E4300B56CE8 /* Part2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Part2View.swift; sourceTree = "<group>"; };
@@ -79,6 +89,8 @@
 		0479552A2AF3909300CBC61D /* SwiftUI-Advanded */ = {
 			isa = PBXGroup;
 			children = (
+				D193BE722B490D4D00ABEA2E /* LazyGrid */,
+				D193BE692B485D4000ABEA2E /* GeometryReader */,
 				047F62F22AF4A2D9003CBB2D /* CustomTabView */,
 				0479552B2AF3909300CBC61D /* SwiftUI_AdvandedApp.swift */,
 				047955392AF3932600CBC61D /* ButtonStyleView.swift */,
@@ -115,6 +127,25 @@
 				047F62F72AF4B19F003CBB2D /* Extensions.swift */,
 			);
 			path = CustomTabView;
+			sourceTree = "<group>";
+		};
+		D193BE692B485D4000ABEA2E /* GeometryReader */ = {
+			isa = PBXGroup;
+			children = (
+				D193BE6A2B485D6000ABEA2E /* TestingGeometryReaderView.swift */,
+				D193BE6C2B48ED3200ABEA2E /* ParallasxScrollView.swift */,
+				D193BE6E2B48F75200ABEA2E /* LayoutReaderView.swift */,
+				D193BE702B48FFC200ABEA2E /* StickeyHeaderView.swift */,
+			);
+			path = GeometryReader;
+			sourceTree = "<group>";
+		};
+		D193BE722B490D4D00ABEA2E /* LazyGrid */ = {
+			isa = PBXGroup;
+			children = (
+				D193BE732B490D5A00ABEA2E /* LazyVgridView.swift */,
+			);
+			name = LazyGrid;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,14 +225,19 @@
 				0479553A2AF3932600CBC61D /* ButtonStyleView.swift in Sources */,
 				D1AED5702AF5FA3E000CB9F1 /* TestingView.swift in Sources */,
 				0479553E2AF3AF0A00CBC61D /* ViewBuilderView.swift in Sources */,
+				D193BE742B490D5A00ABEA2E /* LazyVgridView.swift in Sources */,
 				0459C3782AF8A7CF0008A649 /* LearnAnimationStack.swift in Sources */,
+				D193BE6F2B48F75200ABEA2E /* LayoutReaderView.swift in Sources */,
 				047F62F12AF49C89003CBB2D /* DefaultTabBarView.swift in Sources */,
 				047F62F62AF4AEC8003CBB2D /* PdfToWordTabView.swift in Sources */,
 				04809F032B2FE0A000FCE145 /* NavgationPathView.swift in Sources */,
 				0479553C2AF398A600CBC61D /* CustomTransition.swift in Sources */,
 				0459C37C2AF8D5240008A649 /* BottomSheetView.swift in Sources */,
+				D193BE712B48FFC200ABEA2E /* StickeyHeaderView.swift in Sources */,
+				D193BE6B2B485D6000ABEA2E /* TestingGeometryReaderView.swift in Sources */,
 				D1AED56E2AF5EAFF000CB9F1 /* LayoutSystemView.swift in Sources */,
 				0479552C2AF3909300CBC61D /* SwiftUI_AdvandedApp.swift in Sources */,
+				D193BE6D2B48ED3200ABEA2E /* ParallasxScrollView.swift in Sources */,
 				047F62F42AF4A57C003CBB2D /* CustomTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

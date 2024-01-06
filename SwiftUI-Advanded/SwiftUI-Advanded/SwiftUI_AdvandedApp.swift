@@ -21,7 +21,9 @@ struct SwiftUI_AdvandedApp: App {
 //            LearnAnimationStack()
 //            OffsetView()
 //            BottomSheetView()
-            NavgationPathView()
+//            NavgationPathView()
+//            TestingGeometryReaderView()
+            LazyVgridView()
         }
     }
 }

@@ -33,7 +33,9 @@ Giờ ta có bên ngoài là 1 `SwfitUI View`, chứa bên trong là 1 component
 # V. Understand PreferenKey and when to use it
 
 
-# VI. GeometryReader - Global, local, custom
+# VI. GeometryReader - Global, local, custom and GeometryReader + ScrollView
+
+Done
 
 
 # VII. Understand AlignmentGuild Layout
@@ -137,6 +139,7 @@ OK Done
 OK Done
 
 OK Done
+
 # XII. EquatableView
 
 SwiftUI provides us a very fast and easy to use `diffing algorithm`, but as you might know, `diffing is a linear operation.` Vì vậy thuật toán diffing sẽ rất nhanh trong các trường hợp layout đơn giản và sẽ khá châmh với các trường hợp layout phức tạp. Tuy nhiên, SwiftUI cho phép ta thay thế diffing alogorithm với custom logic của ta. ` This week we will talk about optimizing our SwiftUI layouts using the equatable modifier.`
@@ -150,10 +153,10 @@ As you remember, we already talked about `diffing in SwiftUI`, but let me remind
 Đôi khi chúng ta ko muốn sử dụng thuật toán diffing của SwiftUI, hoặc đôi khi ta muốn ignore some changes in data, and this is the exact place where we can use the `EquatableView` struct.
 
 
+# XIII. ViewModifier
 
 
-
-
+# XIV. LazyVGrid and LazyHGrid 
 
 
 # X. Reference
