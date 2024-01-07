@@ -7,18 +7,43 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+class ConcurrencyModel: ObservableObject {
+    
+    @MainActor
+    func sayHello() async {
+        print("DEBUG: \(Thread.current)")
+        
+        try? await Task.sleep(nanoseconds: 500000)
+        print("DEBUG: \(Thread.current)")
+        
+        try? await Task.sleep(nanoseconds: 2000)
+        print("DEBUG: \(Thread.current)")
+        
+        for i in 0 ... 5000 {
+            print("DEBUG: \(i) qq")
         }
-        .padding()
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView: View {
+    
+    @ObservedObject private var viewModel = ConcurrencyModel()
+    
+    var body: some View {
+        VStack {
+            Text("Hello, world!")
+        }
+        .task {
+            await viewModel.sayHello()
+        }
+        .task {
+            for i in 0 ... 10 {
+                if i == 5 {
+                    try? await Task.sleep(nanoseconds: 1000000)
+                }
+                print("DEBUG: \(i)")
+            }
+        }
+    }
 }
+
