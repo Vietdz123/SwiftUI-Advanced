@@ -158,6 +158,9 @@ As you remember, we already talked about `diffing in SwiftUI`, but let me remind
 
 # XIV. LazyVGrid and LazyHGrid 
 
+Done
+
+# XIII. LiveActivity
 
 # X. Reference
 
