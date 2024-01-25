@@ -67,6 +67,170 @@ struct MatchLiveScoreBundle: WidgetBundle {
 
 - `MatchLiveScore()`: this is the normal widget, the one that you can implement inside the homonym file MatchLiveScore.swift
 - `MatchLiveScoreActivity()`: this is the live activity widget that we are going to implement in our app.
+
+
+## 1.3 ATTRIBUTES
+
+Như đã nói, `MatchLiveScoreAttributes` là struct mà ta sẽ sử dụng để định nghĩa các properties được hiển thị trong live activity. Có 2 loại properties, một là `static`, nghĩa là khi `Live Activity` được created và được hiển thị thì properties này sẽ có static value, và loại thứ 2 là các properties được define bên trong `sub-struct ContentState`, và loại này thì có thể được modified và sau đó nó sẽ update `realtime` lên `Live Activity`.  Để lấy ví dụ với 1 trận đá bóng, ta có thể tạo 1 live activity với các static values đó là `name của teams, sân vẫn động`, bởi vì cá giá trị đó sẽ không bao giờ thay đổi xuyên suốt trận đấu của nó. Trong khi ta có thể sử dụng các `dynamic properties` để set các thông tin như `current match score,  or the last event occurred in the match (a player who scored a goal or has been booked by the referee).`
+
+- Các `dynamic properties` đơn giản là những thuộc tính mà sẽ được passed vào trong push notification để làm cho `activity live update automatically.` Ở đây ta sẽ sẽ lấy ví dụ về `static properties` và `dynamic properties`
+
+```swift
+struct MatchLiveScoreAttributes: ActivityAttributes {
+    public struct ContentState: Codable, Hashable {
+        // Dynamic Properties
+        var homeTeamScore: Int
+        var awayTeamScore: Int
+        var lastEvent: String
+    }
+    
+    // Static Properties
+    var homeTeam: String
+    var awayTeam: String
+    var date: String
+}
+```
+
+So when we will start a Live Activity, we will already know the name of the teams and the date of the match, and we know those properties will never change during this particular live score, so those are constant. The score of each team and the last event occurring will obviously mutate through the game, so those are dynamic and will be updated in the future.
+
+- Bây giờ ta sẽ sử dungj các thông tin này bên trong activity, so that we will show to the user all the information needed, both the static and dynamic ones. Như đã nói ta sẽ `build different layouts for each Live Activity UI shown to the user:`
+
+```swift
+struct MatchLiveScoreLiveActivity: Widget {
+    var body: some WidgetConfiguration {
+        ActivityConfiguration(for: MatchLiveScoreAttributes.self) { context in
+            // Lock screen/banner UI goes here
+            VStack {
+                Text(context.attributes.date)
+                    .font(.caption2)
+                    .padding(4)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(.tertiary)
+                HStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Text("\(context.attributes.homeTeam)")
+                        Text("\(context.state.homeTeamScore)")
+                            .font(.headline)
+                    }
+                    Text(" - ")
+                    HStack {
+                        Text("\(context.state.awayTeamScore)")
+                            .font(.headline)
+                        Text("\(context.attributes.awayTeam)")
+                        Spacer()
+                    }
+                    Spacer()
+                }
+                HStack {
+                    Spacer(minLength: 4)
+                    Text(context.state.lastEvent)
+                        .font(.subheadline)
+                    Spacer(minLength: 4)
+                }
+                .padding(4)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.mint)
+            }
+            .activityBackgroundTint(Color.white)
+            .activitySystemActionForegroundColor(Color.black)
+            
+        } dynamicIsland: { context in
+            DynamicIsland {
+                DynamicIslandExpandedRegion(.leading) {
+                    Text("\(context.attributes.homeTeam) \(context.state.homeTeamScore)")
+                }
+                DynamicIslandExpandedRegion(.trailing) {
+                    Text("\(context.state.awayTeamScore) \(context.attributes.awayTeam)")
+                }
+                DynamicIslandExpandedRegion(.bottom) {
+                    HStack {
+                        Spacer(minLength: 4)
+                        Text(context.state.lastEvent)
+                            .font(.subheadline)
+                            .foregroundColor(.black)
+                        Spacer(minLength: 4)
+                    }
+                    .padding(4)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(.mint)
+                    Text(context.attributes.date)
+                        .font(.caption2)
+                        .padding(4)
+                }
+            } compactLeading: {
+                Text("\(context.attributes.homeTeam) \(context.state.homeTeamScore)")
+            } compactTrailing: {
+                Text("\(context.state.awayTeamScore) \(context.attributes.awayTeam)")
+            } minimal: {
+                Text("⚽")
+            }
+            .widgetURL(URL(string: "https://markwarriors.github.io/"))
+            .keylineTint(Color.red)
+        }
+    }
+}
+```
+
+
+Sau đó ta sẽ mock preview với đoạn code sau:
+
+```swift
+struct MatchLiveScoreLiveActivity_Previews: PreviewProvider {
+    static let attributes = MatchLiveScoreAttributes(homeTeam: "Badger",
+                                                     awayTeam: "Lion",
+                                                     date: "12/09/2023")
+    static let contentState = MatchLiveScoreAttributes.ContentState(homeTeamScore: 0,
+                                                                    awayTeamScore: 0,
+                                                                    lastEvent: "Match start")
+    
+    static var previews: some View {
+        attributes
+            .previewContext(contentState, viewKind: .dynamicIsland(.compact))   //Hiển thị trên Dynamic Island ở chế độ normal
+            .previewDisplayName("Island Compact")
+        attributes
+            .previewContext(contentState, viewKind: .dynamicIsland(.expanded)) //Hiển thị trên Dynamic Island ở chế độ expanded
+            .previewDisplayName("Island Expanded")
+        attributes
+            .previewContext(contentState, viewKind: .dynamicIsland(.minimal))   //Hiển thị trên Dynamic Island ở chế độ minimal
+            .previewDisplayName("Minimal")
+        attributes
+            .previewContext(contentState, viewKind: .content)                   //Hiển thị trên Lock Screen 
+            .previewDisplayName("Notification")
+    }
+}
+```
+
+Ta sẽ thu được lần lượt các preview tương ứng sau:
+
+- Hiển thị trên Dynamic Island ở chế độ normal:
+
+![](Images-DynamicIsland/Dynamic_normal.png)
+
+- Hiển thị trên Dynamic Island ở chế độ expanded:
+
+![](Images-DynamicIsland/Dynamic_expanded.png)
+
+- Hiển thị trên Dynamic Island ở chế độ minimal:
+
+![](Images-DynamicIsland/Dynamic_minimal.png)
+
+- Hiển thị trên Lock Screen:
+
+![](Images-DynamicIsland/Dynamic_lock.png)
+
+
+
+
+
+
+
+
+
+
+
+
 # V. Reference
 
 1. [How to build an iOS Live Activity](https://medium.com/kinandcartacreated/how-to-build-ios-live-activity-d1b2f238819e)

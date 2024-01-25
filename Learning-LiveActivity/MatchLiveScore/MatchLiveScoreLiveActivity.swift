@@ -11,12 +11,14 @@ import SwiftUI
 
 struct MatchLiveScoreAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
-        // Dynamic stateful properties about your activity go here!
-        var emoji: String
+        var homeTeamScore: Int
+        var awayTeamScore: Int
+        var lastEvent: String
     }
-
-    // Fixed non-changing properties about your activity go here!
-    var name: String
+    
+    var homeTeam: String
+    var awayTeam: String
+    var date: String
 }
 
 struct MatchLiveScoreLiveActivity: Widget {
@@ -24,57 +26,98 @@ struct MatchLiveScoreLiveActivity: Widget {
         ActivityConfiguration(for: MatchLiveScoreAttributes.self) { context in
             // Lock screen/banner UI goes here
             VStack {
-                Text("Hello \(context.state.emoji)")
+                Text(context.attributes.date)
+                    .font(.caption2)
+                    .padding(4)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(.tertiary)
+                HStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Text("\(context.attributes.homeTeam)")
+                        Text("\(context.state.homeTeamScore)")
+                            .font(.headline)
+                    }
+                    Text(" - ")
+                    HStack {
+                        Text("\(context.state.awayTeamScore)")
+                            .font(.headline)
+                        Text("\(context.attributes.awayTeam)")
+                        Spacer()
+                    }
+                    Spacer()
+                }
+                HStack {
+                    Spacer(minLength: 4)
+                    Text(context.state.lastEvent)
+                        .font(.subheadline)
+                    Spacer(minLength: 4)
+                }
+                .padding(4)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.mint)
             }
-            .activityBackgroundTint(Color.cyan)
+            .activityBackgroundTint(Color.white)
             .activitySystemActionForegroundColor(Color.black)
-
+            
         } dynamicIsland: { context in
             DynamicIsland {
-                // Expanded UI goes here.  Compose the expanded UI through
-                // various regions, like leading/trailing/center/bottom
                 DynamicIslandExpandedRegion(.leading) {
-                    Text("Leading")
+                    Text("\(context.attributes.homeTeam) \(context.state.homeTeamScore)")
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    Text("Trailing")
+                    Text("\(context.state.awayTeamScore) \(context.attributes.awayTeam)")
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("Bottom \(context.state.emoji)")
-                    // more content
+                    HStack {
+                        Spacer(minLength: 4)
+                        Text(context.state.lastEvent)
+                            .font(.subheadline)
+                            .foregroundColor(.black)
+                        Spacer(minLength: 4)
+                    }
+                    .padding(4)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(.mint)
+                    Text(context.attributes.date)
+                        .font(.caption2)
+                        .padding(4)
                 }
             } compactLeading: {
-                Text("L")
+                Text("\(context.attributes.homeTeam) \(context.state.homeTeamScore)")
             } compactTrailing: {
-                Text("T \(context.state.emoji)")
+                Text("\(context.state.awayTeamScore) \(context.attributes.awayTeam)")
             } minimal: {
-                Text(context.state.emoji)
+                Text("⚽")
             }
-            .widgetURL(URL(string: "http://www.apple.com"))
+            .widgetURL(URL(string: "https://markwarriors.github.io/"))
             .keylineTint(Color.red)
         }
     }
 }
 
-extension MatchLiveScoreAttributes {
-    fileprivate static var preview: MatchLiveScoreAttributes {
-        MatchLiveScoreAttributes(name: "World")
+
+struct MatchLiveScoreLiveActivity_Previews: PreviewProvider {
+    static let attributes = MatchLiveScoreAttributes(homeTeam: "Badger",
+                                                     awayTeam: "Lion",
+                                                     date: "12/09/2023")
+    static let contentState = MatchLiveScoreAttributes.ContentState(homeTeamScore: 0,
+                                                                    awayTeamScore: 0,
+                                                                    lastEvent: "Match start")
+    
+    static var previews: some View {
+        attributes
+            .previewContext(contentState, viewKind: .dynamicIsland(.compact))
+            .previewDisplayName("Island Compact")
+        attributes
+            .previewContext(contentState, viewKind: .dynamicIsland(.expanded))
+            .previewDisplayName("Island Expanded")
+        attributes
+            .previewContext(contentState, viewKind: .dynamicIsland(.minimal))
+            .previewDisplayName("Minimal")
+        attributes
+            .previewContext(contentState, viewKind: .content)
+            .previewDisplayName("Notification")
     }
 }
-
-extension MatchLiveScoreAttributes.ContentState {
-    fileprivate static var smiley: MatchLiveScoreAttributes.ContentState {
-        MatchLiveScoreAttributes.ContentState(emoji: "😀")
-     }
-     
-     fileprivate static var starEyes: MatchLiveScoreAttributes.ContentState {
-         MatchLiveScoreAttributes.ContentState(emoji: "🤩")
-     }
-}
-
-//#Preview("Notification", as: .content, using: MatchLiveScoreAttributes.preview) {
-//   MatchLiveScoreLiveActivity()
-//} contentStates: {
-//    MatchLiveScoreAttributes.ContentState.smiley
-//    MatchLiveScoreAttributes.ContentState.starEyes
-//}
