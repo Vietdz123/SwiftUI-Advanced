@@ -9,17 +9,7 @@ import ActivityKit
 import WidgetKit
 import SwiftUI
 
-struct MatchLiveScoreAttributes: ActivityAttributes {
-    public struct ContentState: Codable, Hashable {
-        var homeTeamScore: Int
-        var awayTeamScore: Int
-        var lastEvent: String
-    }
-    
-    var homeTeam: String
-    var awayTeam: String
-    var date: String
-}
+
 
 struct MatchLiveScoreLiveActivity: Widget {
     var body: some WidgetConfiguration {
@@ -36,14 +26,18 @@ struct MatchLiveScoreLiveActivity: Widget {
                     HStack {
                         Spacer()
                         Text("\(context.attributes.homeTeam)")
+                            .foregroundColor(.black)
                         Text("\(context.state.homeTeamScore)")
+                            .foregroundColor(.black)
                             .font(.headline)
                     }
                     Text(" - ")
                     HStack {
                         Text("\(context.state.awayTeamScore)")
+                            .foregroundColor(.black)
                             .font(.headline)
                         Text("\(context.attributes.awayTeam)")
+                            .foregroundColor(.black)
                         Spacer()
                     }
                     Spacer()
@@ -98,26 +92,26 @@ struct MatchLiveScoreLiveActivity: Widget {
 }
 
 
-struct MatchLiveScoreLiveActivity_Previews: PreviewProvider {
-    static let attributes = MatchLiveScoreAttributes(homeTeam: "Badger",
-                                                     awayTeam: "Lion",
-                                                     date: "12/09/2023")
-    static let contentState = MatchLiveScoreAttributes.ContentState(homeTeamScore: 0,
-                                                                    awayTeamScore: 0,
-                                                                    lastEvent: "Match start")
-    
-    static var previews: some View {
-        attributes
-            .previewContext(contentState, viewKind: .dynamicIsland(.compact))
-            .previewDisplayName("Island Compact")
-        attributes
-            .previewContext(contentState, viewKind: .dynamicIsland(.expanded))
-            .previewDisplayName("Island Expanded")
-        attributes
-            .previewContext(contentState, viewKind: .dynamicIsland(.minimal))
-            .previewDisplayName("Minimal")
-        attributes
-            .previewContext(contentState, viewKind: .content)
-            .previewDisplayName("Notification")
-    }
-}
+//struct MatchLiveScoreLiveActivity_Previews: PreviewProvider {
+//    static let attributes = MatchLiveScoreAttributes(homeTeam: "Badger",
+//                                                     awayTeam: "Lion",
+//                                                     date: "12/09/2023")
+//    static let contentState = MatchLiveScoreAttributes.ContentState(homeTeamScore: 0,
+//                                                                    awayTeamScore: 0,
+//                                                                    lastEvent: "Match start")
+//    
+//    static var previews: some View {
+//        attributes
+//            .previewContext(contentState, viewKind: .dynamicIsland(.compact))
+//            .previewDisplayName("Island Compact")
+//        attributes
+//            .previewContext(contentState, viewKind: .dynamicIsland(.expanded))
+//            .previewDisplayName("Island Expanded")
+//        attributes
+//            .previewContext(contentState, viewKind: .dynamicIsland(.minimal))
+//            .previewDisplayName("Minimal")
+//        attributes
+//            .previewContext(contentState, viewKind: .content)
+//            .previewDisplayName("Notification")
+//    }
+//}

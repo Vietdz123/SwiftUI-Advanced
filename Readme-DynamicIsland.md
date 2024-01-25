@@ -1,10 +1,54 @@
 # LiveActivity And DynamicIsland
 
-# I. How to build an iOS Live Activity
+# I. Displaying live data with Live Activities
+
+Các thiết 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# II. How to build an iOS Live Activity
 
 Một trong những tính năng quan trọng nhất được giới thiệu trong IOS 16 đó là `Live Activities`, tính năng này cho phép người dùng có thể quan sát các thông tin 1 cách real time trên `Lock Screen`
 
-# 1.1 HOW IT WORKS
+# 2.1 HOW IT WORKS
 
 Ta có thể coi `Live Activities` như là một widget với khả năng được updated 1 cách real time. Việc update này được trigger bằng cách sử dụng 1 function trong code hoặc sử dụng push notification được gửi tới thiết bị từ backend service. Khi `Live Activitu` được started, nó sẽ được hiển thị trên lock screen, và dựa trên update push notification, nó sẽ được tự động refresh. Tuy nhiên có 1 thực tế là khi được present trên device, nó cũng được shown trên `Dynamic Island`, và trong trường hợp này `Live Activity` sẽ có 3 UI khác nhau:
 
@@ -14,7 +58,7 @@ Ta có thể coi `Live Activities` như là một widget với khả năng đư�
 
 `So, considering also the widget in the lock screen, we should think about designing 4 kinds of Live Activity UI.`
 
-# 1.2 HOW TO START
+# 2.2 HOW TO START
 
 Đầu tiên ta phải làm cho app chúng ta phải support `Live Activities`, ta vào file Info vào gán `Supports Live Activities` đi cùng với value là `yes`
 
@@ -69,7 +113,7 @@ struct MatchLiveScoreBundle: WidgetBundle {
 - `MatchLiveScoreActivity()`: this is the live activity widget that we are going to implement in our app.
 
 
-## 1.3 ATTRIBUTES
+## 2.3 ATTRIBUTES
 
 Như đã nói, `MatchLiveScoreAttributes` là struct mà ta sẽ sử dụng để định nghĩa các properties được hiển thị trong live activity. Có 2 loại properties, một là `static`, nghĩa là khi `Live Activity` được created và được hiển thị thì properties này sẽ có static value, và loại thứ 2 là các properties được define bên trong `sub-struct ContentState`, và loại này thì có thể được modified và sau đó nó sẽ update `realtime` lên `Live Activity`.  Để lấy ví dụ với 1 trận đá bóng, ta có thể tạo 1 live activity với các static values đó là `name của teams, sân vẫn động`, bởi vì cá giá trị đó sẽ không bao giờ thay đổi xuyên suốt trận đấu của nó. Trong khi ta có thể sử dụng các `dynamic properties` để set các thông tin như `current match score,  or the last event occurred in the match (a player who scored a goal or has been booked by the referee).`
 
@@ -222,15 +266,301 @@ Ta sẽ thu được lần lượt các preview tương ứng sau:
 
 
 
+## 2.4 START AND MANAGE AN ACTIVITY
+
+
+Để khởi tạo và quản lý một `live activity`, ta cần viết 1 vài đoạn code. Để dễ dàng cho việc quản lý `live activity`, ta tạo 1 class tương ứng cho việc khởi tạo nó.
+
+
+```swift
+import ActivityKit
+import Foundation
+
+final class ActivityManager: ObservableObject {
+    @MainActor @Published private(set) var activityID: String?
+    @MainActor @Published private(set) var activityToken: String?
+    
+    static let shared = ActivityManager()
+    
+    func start() async {
+        await endActivity()
+        await startNewLiveActivity()
+    }
+    
+    private func startNewLiveActivity() async {
+        let attributes = MatchLiveScoreAttributes(homeTeam: "Badger",
+                                                  awayTeam: "Lion",
+                                                  date: "12/09/2023")
+        
+        let initialContentState = ActivityContent(state: MatchLiveScoreAttributes.ContentState(homeTeamScore: 0,
+                                                                                               awayTeamScore: 0,
+                                                                                               lastEvent: "Match Start"),
+                                                  staleDate: nil)
+        
+        let activity = try? Activity.request(
+            attributes: attributes,
+            content: initialContentState,
+            pushType: .token
+        )
+        
+        guard let activity = activity else {
+            return
+        }
+        await MainActor.run { activityID = activity.id }
+        
+        for await data in activity.pushTokenUpdates {
+            let token = data.map {String(format: "%02x", $0)}.joined()
+            print("Activity token: \(token)")
+            await MainActor.run { activityToken = token }
+            // HERE SEND THE TOKEN TO THE SERVER
+        }
+    }
+    
+    func updateActivityRandomly() async {
+        guard let activityID = await activityID,
+              let runningActivity = Activity<MatchLiveScoreAttributes>.activities.first(where: { $0.id == activityID }) else {
+            return
+        }
+        let newRandomContentState = MatchLiveScoreAttributes.ContentState(homeTeamScore: Int.random(in: 1...9),
+                                                                          awayTeamScore: Int.random(in: 1...9),
+                                                                          lastEvent: "Something random happened!")
+        await runningActivity.update(using: newRandomContentState)
+    }
+    
+    func endActivity() async {
+        guard let activityID = await activityID,
+              let runningActivity = Activity<MatchLiveScoreAttributes>.activities.first(where: { $0.id == activityID }) else {
+            return
+        }
+        let initialContentState = MatchLiveScoreAttributes.ContentState(homeTeamScore: 0,
+                                                                        awayTeamScore: 0,
+                                                                        lastEvent: "Match Start")
+
+        await runningActivity.end(
+            ActivityContent(state: initialContentState, staleDate: Date.distantFuture),
+            dismissalPolicy: .immediate
+        )
+        
+        await MainActor.run {
+            self.activityID = nil
+            self.activityToken = nil
+        }
+    }
+    
+    func cancelAllRunningActivities() async {
+        for activity in Activity<MatchLiveScoreAttributes>.activities {
+            let initialContentState = MatchLiveScoreAttributes.ContentState(homeTeamScore: 0,
+                                                                            awayTeamScore: 0,
+                                                                            lastEvent: "Match Start")
+            
+            await activity.end(
+                ActivityContent(state: initialContentState, staleDate: Date()),
+                dismissalPolicy: .immediate
+            )
+        }
+        
+        await MainActor.run {
+            activityID = nil
+            activityToken = nil
+        }
+    }
+    
+}
+```
+
+Trong class trên ta có 2 biến cần phải observed:
+- `activityId`: Đây là ID của activity mà sẽ được tạo mỗi khi activity được tạo. Chú ý rằng ta có thể có `multiple running activities` trong app của chúng ta, tuy nhiên trong ví dụ này ta chỉ đơn giản tạo 1 activity.
+- `activityToken`: Đây là token được sinh ra cho `current activity`, đây chính là token cho bên backend dành cho việc tạo `activity-update push notification`.
+
+Bên cạnh đó ta cũng có rất nhiều function mà ta sẽ sử dụng để quản lý activity.
+- `start()`: Cancel tất cả các activities đang running, sau đó bắt đầu 1 cái mới.
+- `startNewLiveActivity()`: Yêu cầu việc khởi tạo và bắt đầu một activity mới, truyền các giá trị `initial properties values`, sau đó ta sẽ nhận được `activityID` và `activityToken`.
+- `updateActivityRandomly()`: where, for sake of code-update example, the current running activity is updated with some random values.
+- `endActivity()`: Ở đây ta sẽ tìm `live activity` nào có id trùng với `activityID` được luwu trong manager, sau đó kết thúc nó. so that means it will not be shown anymore in the dynamic island and in the lock screen
+- `cancelAllRunningActivities()`: that run through all the current running activities (of the specified type MatchLiveScoreAttributes) and ends it all
+
+
+Phần dưới ta sẽ đi chi tiết từ việc start, đền update, và cuối cùng là kết thúc một activity.
+
+### 2.4.1 Start Activity
+
+```swift
+let attributes = MatchLiveScoreAttributes(homeTeam: "Badger",
+                                         awayTeam: "Lion",
+                                         date: "12/09/2023")
+
+let initialContentState = ActivityContent(state: MatchLiveScoreAttributes.ContentState(homeTeamScore: 0,
+                                                                                        awayTeamScore: 0,
+                                                                                        lastEvent: "Match Start"),
+                                            staleDate: nil)
+
+let activity = try? Activity.request(
+    attributes: attributes,
+    content: initialContentState,
+    pushType: .token
+)
+```
+
+Như đã nói, đề tạo một `Activity`, ta cần define các attributes(đó là `static value`) và `initital content`(đó là dynamic values) của nó. Ở đây, ta tạo một `MatchLiveScoreAttributes`, gán tất cả các giá trị cho tất cả các parameters mà ta khai báo là `static values`, và một `ActivityContent`. `ActivityContent` sẽ được khởi tạo thông qua các `parameters` dưới đây.
+
+- `state`: the initial ContentState (in our example a MatchLiveScoreAttributes.ContentState ) for the live activity
+- `staleDate`(ngày cũ): Đây là thời điển chỉ định cho hệ thống biết rằng khi nào `live activity` của ta được coi là outdated. Nếu nó được gán là `nil`, thì giá trị của nó sẽ được coi là 8 giờ, nghĩa là sau 8h thì `live activity` này sẽ được coi là outdated.
+- `relevanceScore`: Đây là mức độ ưu tiên của `live activity` được hoạt động trong `dynamic island` và cũng như thứ tự của nó trong `lock screen`.
+
+
+Để thực sự bắt đầu một `activity`, ta phải sử dụng **Activity.request(attributes:, content:, pushType:).** Đây là một `async throwable` với 3 parameters:
+-  `attributes`: Đây là một instance của `ActivityAttributes`, trong ví dụ này là `MatchLiveScoreAttributes`.
+-  `content`: Đây là một instance của `ActivityAttributes.ContentState`, trong ví dụ này là `MatchLiveScoreAttributes.ContentState`.
+-  `pushType`: Chỉ định rằng liệu bản updates của `Live Activity` có phải được đẩy từ `push notifications(passing .token)` hay chúng ta chỉ muốn update `Live Activity` sử dụng `update` function(passing `nil`.)
+
+Khi ta gọi phương thức này, hệ thống sẽ cố gắng khởi tạo và show `Activity` trên thiết bị. Trong trường hợp success, ta sẽ nhận được `activity identifier and the activity token`:
+
+```swift
+guard let activity = activity else { return }
+print("ACTIVITY IDENTIFIER:\n\(activity.id)")
+
+for await data in activity.pushTokenUpdates {
+    let token = data.map {String(format: "%02x", $0)}.joined()
+    print("ACTIVITY TOKEN:\n\(token)")
+}
+```
+
+### 2.4.2 Update Activity
+
+```swift
+let contentState = MatchLiveScoreAttributes.ContentState(homeTeamScore: 1,
+                                                         awayTeamScore: 3,
+                                                         lastEvent: "Match just updated")
+        
+let content = ActivityContent(state: contentState,
+                              staleDate: nil,
+                              relevanceScore: 0)
+
+await activity.update(using: newContentState,
+                      alertConfiguration: AlertConfiguration(title: "Title",
+                                                             body: "Body",
+                                                             sound: .default))
+```
+
+
+Mỗi khi ta muốn update `Live Activity`, ta sẽ phải gọi function **update(_:, alertConfiguration:)**. In the same way that we created our initial state, we have to create an ActivityContent with the new updated values that we want to pass to the current running activity, and pass it to the update function. `There is also an additional parameter that we can pass to the function, the alertConfiguration , that if not nil , hệ thống sẽ show 1 alert update theo cách sau đây`:
+- `Device with dynamic island`: Nó sẽ được hiển thị trên `dynamic island` với trạng thái `expanded layout`
+- `Device without dynamic island`: Nó sẽ được show trên `lock screen` như là một banner presentation
 
 
 
+### 2.4.3 End Activity
+
+```swift
+let contentState = MatchLiveScoreAttributes.ContentState(homeTeamScore: 3,
+                                                         awayTeamScore: 4,
+                                                         lastEvent: "Match is finished")
+        
+let content = ActivityContent(state: contentState,
+                              staleDate: nil,
+                              relevanceScore: 0)
+
+await activity.end(
+    ActivityContent(state: contentState, 
+                    staleDate: Date.distantFuture),
+    dismissalPolicy: .immediate
+)
+```
 
 
+Nếu ta có 1 activity đang running và muốn kết thúc nó, chúng ta có thể sử dụng fuction call `end(_:, dismissalPolicy:)`. Cũng như function bên trên, ta cần truyền vào `ActivityContent` và 1 `dismissalPolicy`. Câu hỏi đặt ra ở đây là tại sao ta cần một `content` khi ta đang kết thúc một `live activity`? Đó là bởi vì `activity` có thể kết thúc nhưng nó vẫn còn được nhìn thấy trên `lock screen`, vì vậy `content` ở lần này được sử dụng cho trường hợp như vậy. Và cái chịu trách nhiệm cho việc quyết định nó còn được hiển thị trên `lock screen` hay không dựa trên parameter `dismissalPolicy`. This policy can have 3 different values:
+- `default`: Activity sẽ vẫn được nhìn thấy trên `lock screen` trong vòng 4 giờ cho đến khi nó được remove
+- `immediate`: Activity ngay lập tức sẽ được removed hoàn toàn, vì vậy `content` trong trường hợp này là vô dụng
+- `after(_ date:)`: Activity sẽ được removed tại thời điểm ta khai báo ở đây, tuy nhiên thời điểm phải trước 4 giờ activity đã kết thúc, nếu ko hệ thống sẽ tự remove `activity` khỏi lọck screen nếu vượt quá khoảng thời gian đó.
+
+## 2.5 Cách sử dụng
+
+Ta có body phần content view như sau:
+
+```swift
+
+struct ContentView: View {
+    @StateObject private var activityManager = ActivityManager.shared
+    
+    var body: some View {
+        ZStack(alignment: .center) {
+            
+            Color.white
+            
+            VStack {
+                VStack(spacing: 8) {
+                    Text("Activity ID:")
+                        .font(.title3)
+                    Text("\(activityManager.activityID ?? "-")")
+                        .font(.caption2)
+                    Text("Activity Token:")
+                        .font(.title3)
+                    Text("\(activityManager.activityToken ?? "-")")
+                        .font(.caption2)
+                }
+                Spacer()
+                
+                if (activityManager.activityID?.isEmpty == false) {
+                    VStack {
+                    Button("UPDATE RANDOM SCORE FOR LIVE ACTIVITY") {
+                        Task {
+                            await activityManager.updateActivityRandomly()
+                        }
+                    }
+                    .font(.headline)
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity, minHeight: 70)
+                    }
+                    .background(Color.orange)
+                    .frame(maxWidth: .infinity)
+                    VStack {
+                        Button("STOP LIVE ACTIVITY") {
+                            Task {
+                                await activityManager.cancelAllRunningActivities()
+                            }
+                        }
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, minHeight: 70)
+                    }
+                    .background(Color.red)
+                    .frame(maxWidth: .infinity)
+                }
+                else {
+                    VStack {
+                        Button("START LIVE ACTIVITY") {
+                            Task {
+                                await activityManager.start()
+                            }
+                        }
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, minHeight: 70)
+                    }
+                    .background(Color.blue)
+                    .frame(maxWidth: .infinity)
+                }
+            }
+            .padding()
+        }
+    }
+}
+```
+
+Ở đây ta thấy lần lượt các Button như `START LIVE ACTIVITY"`, button này call một function **await activityManager.start()**, cũng như các Button khác call các function `update, end` tương ứng. `Chú ý , nếu tài khoản của ta ko phải Apple Developer, ta sẽ ko add được Push Notification`, nên ko thể xét `.token` được, mà sẽ phải như sau:
 
 
+```swift
+let activity = try? Activity.request(
+    attributes: attributes,
+    content: initialContentState,
+    pushType: nil
+)
+```
 
 
 # V. Reference
 
 1. [How to build an iOS Live Activity](https://medium.com/kinandcartacreated/how-to-build-ios-live-activity-d1b2f238819e)
+2. [Displaying live data with Live Activities - Apple](https://developer.apple.com/documentation/activitykit/displaying-live-data-with-live-activities)
+3. [ Human Interface Guidelines > Live Activities - Apple](https://developer.apple.com/documentation/activitykit/displaying-live-data-with-live-activities)

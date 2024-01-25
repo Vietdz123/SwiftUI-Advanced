@@ -19,6 +19,9 @@
 		04725CB42B611AA600279003 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04725CB32B611AA600279003 /* AppIntent.swift */; };
 		04725CB62B611AA900279003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04725CB52B611AA900279003 /* Assets.xcassets */; };
 		04725CBA2B611AA900279003 /* MatchLiveScoreExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 04725CA62B611AA600279003 /* MatchLiveScoreExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0495E1B72B620B78009DD071 /* ActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495E1B52B620B6B009DD071 /* ActivityManager.swift */; };
+		0495E1B82B625620009DD071 /* ActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495E1B52B620B6B009DD071 /* ActivityManager.swift */; };
+		0495E1B92B625733009DD071 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04725C962B611A7B00279003 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,8 @@
 		04725CB32B611AA600279003 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		04725CB52B611AA900279003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04725CB72B611AA900279003 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0495E1B52B620B6B009DD071 /* ActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityManager.swift; sourceTree = "<group>"; };
+		0495E1BA2B625A52009DD071 /* Learning-LiveActivity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Learning-LiveActivity.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +109,7 @@
 		04725C932B611A7B00279003 /* Learning-LiveActivity */ = {
 			isa = PBXGroup;
 			children = (
+				0495E1BA2B625A52009DD071 /* Learning-LiveActivity.entitlements */,
 				04725C942B611A7B00279003 /* Learning_LiveActivityApp.swift */,
 				04725C962B611A7B00279003 /* ContentView.swift */,
 				04725C982B611A7D00279003 /* Assets.xcassets */,
@@ -135,6 +141,7 @@
 				04725CAD2B611AA600279003 /* MatchLiveScoreBundle.swift */,
 				04725CAF2B611AA600279003 /* MatchLiveScoreLiveActivity.swift */,
 				04725CB12B611AA600279003 /* MatchLiveScore.swift */,
+				0495E1B52B620B6B009DD071 /* ActivityManager.swift */,
 				04725CB32B611AA600279003 /* AppIntent.swift */,
 				04725CB52B611AA900279003 /* Assets.xcassets */,
 				04725CB72B611AA900279003 /* Info.plist */,
@@ -245,6 +252,7 @@
 			files = (
 				04725C972B611A7B00279003 /* ContentView.swift in Sources */,
 				04725C952B611A7B00279003 /* Learning_LiveActivityApp.swift in Sources */,
+				0495E1B82B625620009DD071 /* ActivityManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,7 +260,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0495E1B72B620B78009DD071 /* ActivityManager.swift in Sources */,
 				04725CB22B611AA600279003 /* MatchLiveScore.swift in Sources */,
+				0495E1B92B625733009DD071 /* ContentView.swift in Sources */,
 				04725CB42B611AA600279003 /* AppIntent.swift in Sources */,
 				04725CB02B611AA600279003 /* MatchLiveScoreLiveActivity.swift in Sources */,
 				04725CAE2B611AA600279003 /* MatchLiveScoreBundle.swift in Sources */,
@@ -395,12 +405,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Learning-LiveActivity/Learning-LiveActivity.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Learning-LiveActivity/Preview Content\"";
 				DEVELOPMENT_TEAM = AL5596JXF3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -425,12 +437,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Learning-LiveActivity/Learning-LiveActivity.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Learning-LiveActivity/Preview Content\"";
 				DEVELOPMENT_TEAM = AL5596JXF3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
