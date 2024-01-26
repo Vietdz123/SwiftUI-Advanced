@@ -109,6 +109,7 @@ Output:
 
 ![](images/GeoRead/wrong1.png)
 
+
 Ở đây ta test với device có height là 896, và hãy nhìn output thi được là 310. Tuy nhiên đây là con số sai, bởi vì 896 * 0.38 = 340. Lý do bởi vì ta đang sử dụng thuộc tính `edgesIgnoringSafeArea` cho `VStack` chứ ko phải cho `GeometryReader`. Vì vậy ta cần sử dụng thuộc tính `edgesIgnoringSafeArea` cho `GeometryReader` sẽ thu được kết quả đúng.
 
 Đoạn này thì vào Project mà đọc =)))

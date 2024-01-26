@@ -2,17 +2,85 @@
 
 # I. Displaying live data with Live Activities
 
-Các thiết 
+Các thiết bị mà hỗ trợ `Dynamic Island` mà muốn hiển thị `Live Activity` sẽ hiển thị vài dạng khác nhau.
+- Khi chỉ có 1 `LiveActivity` đang diễn ra, thì hệ thống sẽ sử dụng `compact(nhỏ gọn) presentation`. Nó gồm 2 thành phần: Thành phần thứ nhất sẽ hiển thị bên trái của `TrueDepth Camera`, cái còn lại thì sẽ hiển thị bên phải. Mặc dù 2 thành phần bên trái và bên phải là 2 Views tách biệt nhau hoàn toàn, nhưng nó cũng sẽ tạo được cái nhìn toàn diện về thông tin cần được hiển thị. Người dùng có thể tap vào `compact Live Activity` để mở app và lấy các thông tin cụ thể.
+
+![](Images-DynamicIsland/compact_live.png)
+
+
+- Khi nhiều `Live Activity` từ một vài app được actives,hệ thống sẽ sử dụng `circular minimal presentation` để hiện thị 2 `Live Activity` trên `Dynamic Island`. Hệ thống sẽ chọn một `Live Activity` từ 1 app để đính(`attached`) lên `Dynamic Island` trong khi nó vẫn present 1 `Live Activity` từ 1 app khác mà đã được `detached` khỏi dynamic Island(Nhìn ảnh dưới cho dễ hiểu):
+
+![](Images-DynamicIsland/detached_attached_live.png)
+
+Chế độ `minmal presentation` cũng sẽ xuất hiện trên `Lock Screen` khi thiết bị ở chế độ `standby mode`. `In landscape orientation, charging, and with the display positioned at an angle to face the room. If a person taps the minimal presentation in StandBy, the Live Activity expands to fill the whole display using the Lock Screen presentation.`
+
+- Khi người dùng chạm và giữ `Live Activity` trong chế độ `compact` hoặc `minimal presentation`, hệ thống sẽ hiển thị content dưới dạng `expanded presentation`.
+
+
+## 1.1 Understand constraints
+
+Một `Live Activity` có thể được active trong vòng 8 giờ trừ khi app của nó hoặc người dùng end nó sớm hơn. Sau 8 giờ, hệ thống sẽ tự động kết thúc `Live Activity`, và ngay lập tức sẽ xoá nó khỏi `Dynamic Island`. Tuy nhiên `LiveActivity` vẫn sẽ được giữ lại trên `Lock Screen` cho đến khi người dùng xoá nó đi hoặc cho đến khi quá 4 giờ nữa trước khi hệ thống cũng tự động xoá nó đi. `As a result, a Live Activity remains on the Lock Screen for a maximum of 12 hours`.
+
+- Hệ thống yêu cầu 1 image asset cho `Live Activity` có độ phân giải nhỏ hơn hoặc bằng size mà được presentation của device. Nếu ta sử dụng 1 `image asset` mà lớn hơn size của `Live Activity presentation`, hệ thống sẽ thất bại trong việc start live activity(`If you use an image asset that’s larger than the size of the Live Activity presentation, the system might fail to start the Live Activity`). Nghĩa là, một image ta sử dụng cho chế độ `minimal presentation` không được vượt quá 45x36.67. See [Human Interface Guidelines > Live Activities.](https://developer.apple.com/design/human-interface-guidelines/live-activities#Specifications)
+- Mỗi `Live Activity` chạy trên chính `sandbox` của chính nó, không như `widget`, nó ko thể truy cập network hoặc nhận location update. Để update dynamic island, ta phải sử dụng `ActivityKit` trong app và cho phép `Live Activity` nhận thông tin update qua `ActivityKit push notifications`. Phần này được miêu tả ở [here](https://developer.apple.com/documentation/activitykit/starting-and-updating-live-activities-with-activitykit-push-notifications).
+
+
+## 1.2 Create the compact and minimal presentations
+
+`LiveActivity` sẽ xuất hiện trên `Dynamic Island` nếu các device support nó. Khi ta bắt đầu một hoặc nhiều `LiveActivity` và ko có app nào cũng bắt đầu `Live Activity`, `compact leading` và `compact trailing` sẽ xuất hiện cùng nhau trên `Dynamic Island`. Khi nhiều hơn 1 app bắt đầu `live activity`, hệ thống sẽ chọn 2 `Live Activity` sẽ được xuất hiện và nhìn thấy bằng cách sử dụng `minimal presentation`. `One minimal presentation appears attached to the Dynamic Island, while the other appears detached`. Nếu app của ta bắt đầu 2 `Live Activity` cùng 1 lúc, ta có thể nói cho hệ thống cái nào sẽ được hiển thị. Phần này sẽ được nói rõ hơn ở `Configure the Live Activity` bên dưới.
 
 
 
 
+## 1.3 Create the expanded presentation
+
+Để render views mà xuất hiện trên `expanded Live Activity`, hệ thống sẽ chia `expanded` này thành các vùng khác nhau:
+
+![](Images-DynamicIsland/expanded_apple.png)
+
+- `Center`: Đặt content ngay bên dưới `TrueDepth Camera`.
+- `leading`: Đặt content dọc theo góc trái cảu `expanded live activity`
+- `trailing`: Đặt content dọc theo góc phải cảu `expanded live activity`
+- `bottom`: places content below the leading, trailing, and center content.
 
 
+Để render nội dung mà xuất hiện trên `expanded live acitivity`, hệ thống đầu tiên sẽ quyết định `width` của vùng `center content` trong khi cố lấy tối thiểu chiều rộng của `leading và trailing content`. Hệ thống sau đó sẽ đặt và xác định size của `leading và trailing` dựa trên `vertical position`. Mặc định, `leading và trailing position` sẽ nhận không gian trái và phải bằng nhau. Ta có thể thông báo cho hệ thống sẽ ưu tiên phần nào hơn.  The system renders the view with the highest priority with the full width of the Dynamic Island. The following illustration shows leading and trailing positions in an expanded presentation with higher priority to render them below the TrueDepth camera.
+
+![](Images-DynamicIsland/priority_higher.png)
 
 
+## 1.4 Set custom content margins
 
+Limiting the content you display is key to offering glanceable, easy-to-read Live Activities. Aim to use the system’s default content margins for your Live Activities and only show content that’s relevant to the person viewing it. However, you may want to change the system’s default content margin to display more content or provide a custom user interface that matches your app. To set custom content margins, `use contentMargins(_:_:for:)`. The following example results in a margin of eight points for the trailing edge of an expanded Live Activity.
 
+```swift
+struct AdventureActivityConfiguration: Widget {
+    var body: some WidgetConfiguration {
+        ActivityConfiguration(for: AdventureAttributes.self) { context in
+            // Create the presentation that appears on the Lock Screen and as a
+            // banner on the Home Screen of devices that don't support the
+            // Dynamic Island.
+            // ...
+        } dynamicIsland: { context in
+            // Create the presentations that appear in the Dynamic Island.
+            DynamicIsland {
+                // Create the expanded presentation.
+                // ...
+            } compactLeading: {
+                // Create the compact leading presentation.
+                // ...
+            } compactTrailing: {
+                // Create the compact trailing presentation.
+                // ...
+            } minimal: {
+                // Create the minimal presentation.
+                // ...
+            }
+            .contentMargins(.trailing, 8, for: .expanded)
+        }
+    }
+}
+```
 
 
 
@@ -60,7 +128,7 @@ Ta có thể coi `Live Activities` như là một widget với khả năng đư�
 
 # 2.2 HOW TO START
 
-Đầu tiên ta phải làm cho app chúng ta phải support `Live Activities`, ta vào file Info vào gán `Supports Live Activities` đi cùng với value là `yes`
+- Đầu tiên ta phải làm cho app chúng ta phải support `Live Activities`, ta vào file Info vào gán `Supports Live Activities` đi cùng với value là `yes`
 
 ![](Images-DynamicIsland/support_live.png)
 
