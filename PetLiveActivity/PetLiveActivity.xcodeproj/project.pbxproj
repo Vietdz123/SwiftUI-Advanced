@@ -11,7 +11,41 @@
 		D18D79E52B635BF100DCC80C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18D79E42B635BF100DCC80C /* ContentView.swift */; };
 		D18D79E72B635BF100DCC80C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D18D79E62B635BF100DCC80C /* Assets.xcassets */; };
 		D18D79EA2B635BF100DCC80C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D18D79E92B635BF100DCC80C /* Preview Assets.xcassets */; };
+		D18D79F72B635C6A00DCC80C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D18D79F62B635C6A00DCC80C /* WidgetKit.framework */; };
+		D18D79F92B635C6A00DCC80C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D18D79F82B635C6A00DCC80C /* SwiftUI.framework */; };
+		D18D79FC2B635C6A00DCC80C /* PetDemoLiveAcitivyBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18D79FB2B635C6A00DCC80C /* PetDemoLiveAcitivyBundle.swift */; };
+		D18D79FE2B635C6A00DCC80C /* PetDemoLiveAcitivyLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18D79FD2B635C6A00DCC80C /* PetDemoLiveAcitivyLiveActivity.swift */; };
+		D18D7A002B635C6A00DCC80C /* PetDemoLiveAcitivy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18D79FF2B635C6A00DCC80C /* PetDemoLiveAcitivy.swift */; };
+		D18D7A022B635C6A00DCC80C /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18D7A012B635C6A00DCC80C /* AppIntent.swift */; };
+		D18D7A042B635C6B00DCC80C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D18D7A032B635C6B00DCC80C /* Assets.xcassets */; };
+		D18D7A082B635C6B00DCC80C /* PetDemoLiveAcitivyExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D18D79F42B635C6A00DCC80C /* PetDemoLiveAcitivyExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D18D7A0F2B635E4500DCC80C /* ActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18D7A0D2B635D8200DCC80C /* ActivityManager.swift */; };
+		D18D7A112B640C2600DCC80C /* ActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18D7A0D2B635D8200DCC80C /* ActivityManager.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D18D7A062B635C6B00DCC80C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D18D79D72B635BF000DCC80C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D18D79F32B635C6A00DCC80C;
+			remoteInfo = PetDemoLiveAcitivyExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D18D7A0C2B635C6B00DCC80C /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D18D7A082B635C6B00DCC80C /* PetDemoLiveAcitivyExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		D18D79DF2B635BF100DCC80C /* PetLiveActivity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetLiveActivity.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -19,6 +53,17 @@
 		D18D79E42B635BF100DCC80C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D18D79E62B635BF100DCC80C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D18D79E92B635BF100DCC80C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D18D79F42B635C6A00DCC80C /* PetDemoLiveAcitivyExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PetDemoLiveAcitivyExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D18D79F62B635C6A00DCC80C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		D18D79F82B635C6A00DCC80C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		D18D79FB2B635C6A00DCC80C /* PetDemoLiveAcitivyBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDemoLiveAcitivyBundle.swift; sourceTree = "<group>"; };
+		D18D79FD2B635C6A00DCC80C /* PetDemoLiveAcitivyLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDemoLiveAcitivyLiveActivity.swift; sourceTree = "<group>"; };
+		D18D79FF2B635C6A00DCC80C /* PetDemoLiveAcitivy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDemoLiveAcitivy.swift; sourceTree = "<group>"; };
+		D18D7A012B635C6A00DCC80C /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		D18D7A032B635C6B00DCC80C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D18D7A052B635C6B00DCC80C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D18D7A0D2B635D8200DCC80C /* ActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityManager.swift; sourceTree = "<group>"; };
+		D18D7A102B63B10C00DCC80C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +74,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D18D79F12B635C6A00DCC80C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D18D79F92B635C6A00DCC80C /* SwiftUI.framework in Frameworks */,
+				D18D79F72B635C6A00DCC80C /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -36,6 +90,8 @@
 			isa = PBXGroup;
 			children = (
 				D18D79E12B635BF100DCC80C /* PetLiveActivity */,
+				D18D79FA2B635C6A00DCC80C /* PetDemoLiveAcitivy */,
+				D18D79F52B635C6A00DCC80C /* Frameworks */,
 				D18D79E02B635BF100DCC80C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				D18D79DF2B635BF100DCC80C /* PetLiveActivity.app */,
+				D18D79F42B635C6A00DCC80C /* PetDemoLiveAcitivyExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -51,6 +108,7 @@
 		D18D79E12B635BF100DCC80C /* PetLiveActivity */ = {
 			isa = PBXGroup;
 			children = (
+				D18D7A102B63B10C00DCC80C /* Info.plist */,
 				D18D79E22B635BF100DCC80C /* PetLiveActivityApp.swift */,
 				D18D79E42B635BF100DCC80C /* ContentView.swift */,
 				D18D79E62B635BF100DCC80C /* Assets.xcassets */,
@@ -67,6 +125,29 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		D18D79F52B635C6A00DCC80C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D18D79F62B635C6A00DCC80C /* WidgetKit.framework */,
+				D18D79F82B635C6A00DCC80C /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D18D79FA2B635C6A00DCC80C /* PetDemoLiveAcitivy */ = {
+			isa = PBXGroup;
+			children = (
+				D18D79FB2B635C6A00DCC80C /* PetDemoLiveAcitivyBundle.swift */,
+				D18D7A0D2B635D8200DCC80C /* ActivityManager.swift */,
+				D18D79FD2B635C6A00DCC80C /* PetDemoLiveAcitivyLiveActivity.swift */,
+				D18D79FF2B635C6A00DCC80C /* PetDemoLiveAcitivy.swift */,
+				D18D7A012B635C6A00DCC80C /* AppIntent.swift */,
+				D18D7A032B635C6B00DCC80C /* Assets.xcassets */,
+				D18D7A052B635C6B00DCC80C /* Info.plist */,
+			);
+			path = PetDemoLiveAcitivy;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -77,15 +158,34 @@
 				D18D79DB2B635BF100DCC80C /* Sources */,
 				D18D79DC2B635BF100DCC80C /* Frameworks */,
 				D18D79DD2B635BF100DCC80C /* Resources */,
+				D18D7A0C2B635C6B00DCC80C /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D18D7A072B635C6B00DCC80C /* PBXTargetDependency */,
 			);
 			name = PetLiveActivity;
 			productName = PetLiveActivity;
 			productReference = D18D79DF2B635BF100DCC80C /* PetLiveActivity.app */;
 			productType = "com.apple.product-type.application";
+		};
+		D18D79F32B635C6A00DCC80C /* PetDemoLiveAcitivyExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D18D7A092B635C6B00DCC80C /* Build configuration list for PBXNativeTarget "PetDemoLiveAcitivyExtension" */;
+			buildPhases = (
+				D18D79F02B635C6A00DCC80C /* Sources */,
+				D18D79F12B635C6A00DCC80C /* Frameworks */,
+				D18D79F22B635C6A00DCC80C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PetDemoLiveAcitivyExtension;
+			productName = PetDemoLiveAcitivyExtension;
+			productReference = D18D79F42B635C6A00DCC80C /* PetDemoLiveAcitivyExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -98,6 +198,9 @@
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					D18D79DE2B635BF100DCC80C = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					D18D79F32B635C6A00DCC80C = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
 				};
@@ -116,6 +219,7 @@
 			projectRoot = "";
 			targets = (
 				D18D79DE2B635BF100DCC80C /* PetLiveActivity */,
+				D18D79F32B635C6A00DCC80C /* PetDemoLiveAcitivyExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -130,6 +234,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D18D79F22B635C6A00DCC80C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D18D7A042B635C6B00DCC80C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -139,10 +251,31 @@
 			files = (
 				D18D79E52B635BF100DCC80C /* ContentView.swift in Sources */,
 				D18D79E32B635BF100DCC80C /* PetLiveActivityApp.swift in Sources */,
+				D18D7A112B640C2600DCC80C /* ActivityManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D18D79F02B635C6A00DCC80C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D18D7A0F2B635E4500DCC80C /* ActivityManager.swift in Sources */,
+				D18D7A002B635C6A00DCC80C /* PetDemoLiveAcitivy.swift in Sources */,
+				D18D7A022B635C6A00DCC80C /* AppIntent.swift in Sources */,
+				D18D79FC2B635C6A00DCC80C /* PetDemoLiveAcitivyBundle.swift in Sources */,
+				D18D79FE2B635C6A00DCC80C /* PetDemoLiveAcitivyLiveActivity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D18D7A072B635C6B00DCC80C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D18D79F32B635C6A00DCC80C /* PetDemoLiveAcitivyExtension */;
+			targetProxy = D18D7A062B635C6B00DCC80C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D18D79EB2B635BF100DCC80C /* Debug */ = {
@@ -267,6 +400,7 @@
 		D18D79EE2B635BF100DCC80C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -275,6 +409,8 @@
 				DEVELOPMENT_TEAM = AL5596JXF3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PetLiveActivity/Info.plist;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -296,6 +432,7 @@
 		D18D79EF2B635BF100DCC80C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -304,6 +441,8 @@
 				DEVELOPMENT_TEAM = AL5596JXF3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PetLiveActivity/Info.plist;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -316,6 +455,60 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.longvb.PetLiveActivity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D18D7A0A2B635C6B00DCC80C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AL5596JXF3;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PetDemoLiveAcitivy/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PetDemoLiveAcitivy;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.longvb.PetLiveActivity.PetDemoLiveAcitivy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D18D7A0B2B635C6B00DCC80C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AL5596JXF3;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PetDemoLiveAcitivy/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PetDemoLiveAcitivy;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.longvb.PetLiveActivity.PetDemoLiveAcitivy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -339,6 +532,15 @@
 			buildConfigurations = (
 				D18D79EE2B635BF100DCC80C /* Debug */,
 				D18D79EF2B635BF100DCC80C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D18D7A092B635C6B00DCC80C /* Build configuration list for PBXNativeTarget "PetDemoLiveAcitivyExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D18D7A0A2B635C6B00DCC80C /* Debug */,
+				D18D7A0B2B635C6B00DCC80C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
