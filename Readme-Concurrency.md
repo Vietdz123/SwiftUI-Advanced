@@ -207,7 +207,7 @@ Phân tích:
 - Ta thấy xuyên suốt quá trình này thì `MainThread` không bị blocked 1 tí nào cả, và nó chạy xuyên suốt quá trình.
 
 
-# II. Structured adn Unstrcutured Concurrency
+# II. Structured and Unstrcutured Concurrency
 
 `Swift Concurrency` dựa vào concept gọi là `Structured Concurrency` để miêu tả mối quan hệ giữa parent và child tasks.
 

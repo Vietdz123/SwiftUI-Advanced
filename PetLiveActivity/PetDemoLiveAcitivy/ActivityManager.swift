@@ -28,28 +28,8 @@ final class ActivityManager: ObservableObject {
     let imageName = ["naruto", "qq"]
     
     init() {
-        //        let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
-//        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [self] timer in
-//            
-//            if numGuest < imageName.count - 1 {
-//                
-//                
-//                
-//                Task {
-//                    
-//                    numGuest += 1
-//                    await  updateActivityRandomly(imageName: imageName[numGuest])
-//                }
-//                
-//            } else {
-//                
-//                Task {
-//                    numGuest = 0
-//                    await  updateActivityRandomly(imageName: imageName[numGuest])
-//                }
-//                
-//            }
-//        }
+//                let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
+
     }
     
     

@@ -7,24 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		044A91172B67603D0058A2DF /* VietActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A91162B67603D0058A2DF /* VietActor.swift */; };
-		D19454882B4970FA005D50C2 /* AsyncAwaitLearningApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19454872B4970FA005D50C2 /* AsyncAwaitLearningApp.swift */; };
-		D194548A2B4970FA005D50C2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19454892B4970FA005D50C2 /* ContentView.swift */; };
-		D194548C2B4970FB005D50C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D194548B2B4970FB005D50C2 /* Assets.xcassets */; };
-		D194548F2B4970FB005D50C2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D194548E2B4970FB005D50C2 /* Preview Assets.xcassets */; };
+		048F45E62B67586000BEFD0C /* DeviceInformationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048F45E52B67586000BEFD0C /* DeviceInformationApp.swift */; };
+		048F45E82B67586000BEFD0C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048F45E72B67586000BEFD0C /* ContentView.swift */; };
+		048F45EA2B67586100BEFD0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048F45E92B67586100BEFD0C /* Assets.xcassets */; };
+		048F45ED2B67586100BEFD0C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048F45EC2B67586100BEFD0C /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		044A91162B67603D0058A2DF /* VietActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VietActor.swift; sourceTree = "<group>"; };
-		D19454842B4970FA005D50C2 /* AsyncAwaitLearning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AsyncAwaitLearning.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D19454872B4970FA005D50C2 /* AsyncAwaitLearningApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAwaitLearningApp.swift; sourceTree = "<group>"; };
-		D19454892B4970FA005D50C2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		D194548B2B4970FB005D50C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D194548E2B4970FB005D50C2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		048F45E22B67586000BEFD0C /* DeviceInformation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeviceInformation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		048F45E52B67586000BEFD0C /* DeviceInformationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInformationApp.swift; sourceTree = "<group>"; };
+		048F45E72B67586000BEFD0C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		048F45E92B67586100BEFD0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		048F45EC2B67586100BEFD0C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D19454812B4970FA005D50C2 /* Frameworks */ = {
+		048F45DF2B67586000BEFD0C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -34,38 +32,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D194547B2B4970FA005D50C2 = {
+		048F45D92B67586000BEFD0C = {
 			isa = PBXGroup;
 			children = (
-				D19454862B4970FA005D50C2 /* AsyncAwaitLearning */,
-				D19454852B4970FA005D50C2 /* Products */,
+				048F45E42B67586000BEFD0C /* DeviceInformation */,
+				048F45E32B67586000BEFD0C /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		D19454852B4970FA005D50C2 /* Products */ = {
+		048F45E32B67586000BEFD0C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D19454842B4970FA005D50C2 /* AsyncAwaitLearning.app */,
+				048F45E22B67586000BEFD0C /* DeviceInformation.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D19454862B4970FA005D50C2 /* AsyncAwaitLearning */ = {
+		048F45E42B67586000BEFD0C /* DeviceInformation */ = {
 			isa = PBXGroup;
 			children = (
-				D19454872B4970FA005D50C2 /* AsyncAwaitLearningApp.swift */,
-				D19454892B4970FA005D50C2 /* ContentView.swift */,
-				044A91162B67603D0058A2DF /* VietActor.swift */,
-				D194548B2B4970FB005D50C2 /* Assets.xcassets */,
-				D194548D2B4970FB005D50C2 /* Preview Content */,
+				048F45E52B67586000BEFD0C /* DeviceInformationApp.swift */,
+				048F45E72B67586000BEFD0C /* ContentView.swift */,
+				048F45E92B67586100BEFD0C /* Assets.xcassets */,
+				048F45EB2B67586100BEFD0C /* Preview Content */,
 			);
-			path = AsyncAwaitLearning;
+			path = DeviceInformation;
 			sourceTree = "<group>";
 		};
-		D194548D2B4970FB005D50C2 /* Preview Content */ = {
+		048F45EB2B67586100BEFD0C /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				D194548E2B4970FB005D50C2 /* Preview Assets.xcassets */,
+				048F45EC2B67586100BEFD0C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -73,39 +70,39 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D19454832B4970FA005D50C2 /* AsyncAwaitLearning */ = {
+		048F45E12B67586000BEFD0C /* DeviceInformation */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D19454922B4970FB005D50C2 /* Build configuration list for PBXNativeTarget "AsyncAwaitLearning" */;
+			buildConfigurationList = 048F45F02B67586100BEFD0C /* Build configuration list for PBXNativeTarget "DeviceInformation" */;
 			buildPhases = (
-				D19454802B4970FA005D50C2 /* Sources */,
-				D19454812B4970FA005D50C2 /* Frameworks */,
-				D19454822B4970FA005D50C2 /* Resources */,
+				048F45DE2B67586000BEFD0C /* Sources */,
+				048F45DF2B67586000BEFD0C /* Frameworks */,
+				048F45E02B67586000BEFD0C /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = AsyncAwaitLearning;
-			productName = AsyncAwaitLearning;
-			productReference = D19454842B4970FA005D50C2 /* AsyncAwaitLearning.app */;
+			name = DeviceInformation;
+			productName = DeviceInformation;
+			productReference = 048F45E22B67586000BEFD0C /* DeviceInformation.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		D194547C2B4970FA005D50C2 /* Project object */ = {
+		048F45DA2B67586000BEFD0C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					D19454832B4970FA005D50C2 = {
+					048F45E12B67586000BEFD0C = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
 				};
 			};
-			buildConfigurationList = D194547F2B4970FA005D50C2 /* Build configuration list for PBXProject "AsyncAwaitLearning" */;
+			buildConfigurationList = 048F45DD2B67586000BEFD0C /* Build configuration list for PBXProject "DeviceInformation" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -113,43 +110,42 @@
 				en,
 				Base,
 			);
-			mainGroup = D194547B2B4970FA005D50C2;
-			productRefGroup = D19454852B4970FA005D50C2 /* Products */;
+			mainGroup = 048F45D92B67586000BEFD0C;
+			productRefGroup = 048F45E32B67586000BEFD0C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D19454832B4970FA005D50C2 /* AsyncAwaitLearning */,
+				048F45E12B67586000BEFD0C /* DeviceInformation */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		D19454822B4970FA005D50C2 /* Resources */ = {
+		048F45E02B67586000BEFD0C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D194548F2B4970FB005D50C2 /* Preview Assets.xcassets in Resources */,
-				D194548C2B4970FB005D50C2 /* Assets.xcassets in Resources */,
+				048F45ED2B67586100BEFD0C /* Preview Assets.xcassets in Resources */,
+				048F45EA2B67586100BEFD0C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		D19454802B4970FA005D50C2 /* Sources */ = {
+		048F45DE2B67586000BEFD0C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				044A91172B67603D0058A2DF /* VietActor.swift in Sources */,
-				D194548A2B4970FA005D50C2 /* ContentView.swift in Sources */,
-				D19454882B4970FA005D50C2 /* AsyncAwaitLearningApp.swift in Sources */,
+				048F45E82B67586000BEFD0C /* ContentView.swift in Sources */,
+				048F45E62B67586000BEFD0C /* DeviceInformationApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		D19454902B4970FB005D50C2 /* Debug */ = {
+		048F45EE2B67586100BEFD0C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -212,7 +208,7 @@
 			};
 			name = Debug;
 		};
-		D19454912B4970FB005D50C2 /* Release */ = {
+		048F45EF2B67586100BEFD0C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -268,14 +264,14 @@
 			};
 			name = Release;
 		};
-		D19454932B4970FB005D50C2 /* Debug */ = {
+		048F45F12B67586100BEFD0C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"AsyncAwaitLearning/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"DeviceInformation/Preview Content\"";
 				DEVELOPMENT_TEAM = AL5596JXF3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -289,7 +285,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.longvb.AsyncAwaitLearning;
+				PRODUCT_BUNDLE_IDENTIFIER = com.longvb.PetLiveActivity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -297,14 +293,14 @@
 			};
 			name = Debug;
 		};
-		D19454942B4970FB005D50C2 /* Release */ = {
+		048F45F22B67586100BEFD0C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"AsyncAwaitLearning/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"DeviceInformation/Preview Content\"";
 				DEVELOPMENT_TEAM = AL5596JXF3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -318,7 +314,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.longvb.AsyncAwaitLearning;
+				PRODUCT_BUNDLE_IDENTIFIER = com.longvb.PetLiveActivity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -329,25 +325,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D194547F2B4970FA005D50C2 /* Build configuration list for PBXProject "AsyncAwaitLearning" */ = {
+		048F45DD2B67586000BEFD0C /* Build configuration list for PBXProject "DeviceInformation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D19454902B4970FB005D50C2 /* Debug */,
-				D19454912B4970FB005D50C2 /* Release */,
+				048F45EE2B67586100BEFD0C /* Debug */,
+				048F45EF2B67586100BEFD0C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D19454922B4970FB005D50C2 /* Build configuration list for PBXNativeTarget "AsyncAwaitLearning" */ = {
+		048F45F02B67586100BEFD0C /* Build configuration list for PBXNativeTarget "DeviceInformation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D19454932B4970FB005D50C2 /* Debug */,
-				D19454942B4970FB005D50C2 /* Release */,
+				048F45F12B67586100BEFD0C /* Debug */,
+				048F45F22B67586100BEFD0C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = D194547C2B4970FA005D50C2 /* Project object */;
+	rootObject = 048F45DA2B67586000BEFD0C /* Project object */;
 }

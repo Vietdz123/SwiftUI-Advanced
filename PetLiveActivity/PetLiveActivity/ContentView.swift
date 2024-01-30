@@ -9,12 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var numGuest = 0
+    @State @MainActor private var numGuest = 0
     let imageName = ["naruto", "qq"]
+
     
+
     
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             Button(action: {
                 Task {
                     await  ActivityManager.shared.start()
@@ -33,6 +35,30 @@ struct ContentView: View {
             })
             
         }
+        .onAppear(perform: {
+            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [self] timer in
+                
+                if numGuest < imageName.count - 1 {
+                    
+                    
+                    
+                    Task {
+                        numGuest += 1
+                        print("DEBUG: \(await numGuest) num")
+                        await  ActivityManager.shared.updateActivityRandomly(imageName: imageName[numGuest])
+                    }
+                    
+                } else {
+                    
+                    Task {
+                        numGuest = 0
+                        print("DEBUG: \(await numGuest) qq")
+                        await  ActivityManager.shared.updateActivityRandomly(imageName: imageName[numGuest])
+                    }
+                    
+                }
+            }
+        })
 //        .onChange(of: numGuest, initial: false, { oldValue, newValue in
 //            print("DEBUG: zo \(oldValue) and \(newValue)")
 //            if numGuest < imageName.count - 1 {
