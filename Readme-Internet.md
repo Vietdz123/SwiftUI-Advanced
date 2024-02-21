@@ -20,8 +20,6 @@ Cơ bản thì `Authenication` sẽ xác thực rằng `user` là ai. Còn `Auth
 ![](Images-Internet/authen_author.png)
 
 
-
-
 # II. JWT
 
 `JWT` viết tắt của `Json Web Token`, nó được sử dụng cho các `websites và apps` để xác minh người dùng đang là ai một cách an toàn. Một cấu trúc `JWT` gồm 3 phần: `header, payload, signature`. Mỗi một thành phần được ngăn cách nhau bởi dấu chấm `(.)`
@@ -95,6 +93,46 @@ Giả sử có thằng hacker nào trôm được token của ta, thì nó cũng
 - Vậy tại sao ta nên dùng nó mà ko dùng `session`:
 
 Bởi vì nó bảo mật và thứ 2 là nó sẽ hữu dụng trong các trường hợp này hơn là sử dụng `session`. Đầu tiên là với thằng `session`, sau khi user authenticaiton, `server` sẽ giữ thông tin `sessionID` của user và send back thông tin đó cho user, để truy cập các tài nguyên thì user cần gửi `sessionID` này đi cùng(nghe khá giống `JWT` đúng ko ?). Tuy nhiên điểm khác biệt là với `JWT` là `stateless`, nghĩa là server sẽ ko giữ bất kì thông tin nào về phía `client`, mà nó sẽ xác định thông tin qua `JWT`. Nghĩa là nhờ phần `payload` của `JWT`, `server` sẽ biết được client là ai như thông qua `name, admin,...`.  Vậy thì cái naỳ có gì đặc biệt ? Câu trả lời là có nếu 1 hệ thống đặt 2 server chứa 2 cơ sở dữ liệu ở vị trí khác nhau. Như `server 1` chứa thông tin về `tên, tuổi, bài post của user`, còn `server thứ 2 sẽ chứa họ hàng, điểm số,..`. Khi user log in vào server 1 để truy cập, nếu sử dụng `sessionID` thì thông tin `sessionID` đó chỉ đang được lưu ở `server 1`, và người dùng sẽ phải tiếp tục login hay qua 1 bước nào đó nếu muốn truy cập vào `server 2`. Điều này hoàn toàn đơn giản khi sử dụng `jwt`, bởi vì server ko lưu giữ thông tin gì cả mà nó được xác định hoàn toàn qua payload.
+
+
+# III. Base64 Encoding
+
+Ta biết rằng có hệ 2 là `0, 1`, hệ 10 là từ `0 đến 9`, và hệ 16 là `0 đến 9 và A,B,C,D,E,F`, vậy hệ 64 cũng thế, nó gồm các chữ cái viết thường, các chữ cái viết hoa và gồm các số từ `0 đến 9 và thêm dấu + và \`.
+
+![](Images-Internet/base64.png)
+
+Ta lấy ví dụ:
+
+![](Images-Internet/base64_exp.png)
+
+
+Giải thích:
+
+- Ta có chứ `And`, tương ứng với giá trị `64`, `110`, `100` trong hệ cơ số 10. Ta convert nó sang hệ nhị phân và được value bên dưới. Sau đó ta tách thành các phần `6 bits`, bởi vì `6 bit sẽ có tổng là 64 = 2^5 + ... + 2^0`. Sau đó từ đó đối chiều về bảng base64 ở bên trên. Kết quả là từ `And` sau qua `base64` sẽ được `QW5k`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # X. Reference
